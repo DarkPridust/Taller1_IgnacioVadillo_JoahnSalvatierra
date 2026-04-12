@@ -25,6 +25,8 @@ class ContenedorClientes{
     +obtenerCliente(posicion: int): Cliente
 }
 
+ContenedorClientes"1"o-->"*"Cliente
+
 class Mesa{
     -id: int
     -tipoJuego: String
@@ -47,6 +49,7 @@ class ContenedorMesa{
     +buscarMesa(id: int): int
     +obtenerMesa(posicion: int): Mesa
     }
+ContenedorMesa"1"o-->"*"Mesa
 
 class Jugada{
     -fechaJugada: String
@@ -68,12 +71,17 @@ class ContenedorJugadas{
     +buscarJugada(rut: String): int
     +obtenerJugada(posicion: int): Jugada
 }
+ContenedorJugadas"1"--->"*"Jugada: tiene
 
 class SistemaCasinoImpl{
     -listadoClientes: ContenedorClientes
     +SistemaCasinoImpl()
 }
 
+SistemaCasinoImpl"1"--->"1"ContenedorClientes: posee
+SistemaCasinoImpl"1"--->"1"ContenedorMesa: posee
+SistemaCasinoImpl"1"--->"1"SistemaCasino: implementa
+SistemaCasinoImpl"1"--->"1"ContenedorJugadas: posee
 
 interface SistemaCasino{
     +IniciarSesion(nombreUsuario: String, contrasenia: String): void
