@@ -11,22 +11,63 @@ class Cliente{
     -categoriaSocio: String
     +Cliente(rut: String, nombre: String, apellidoPaterno: String, apellidoMaterno: String,
     nombreUsuario: String, contrasenia: String, categoriaSocio: String)
-
+    +get's()
+    +set's()
 }
 
 class ContenedorClientes{
+    -listaClientes: Cliente[]
+    -cantMax: int
+    -cantActual: int
+    +ContenedorClientes(cantMax: int)
     +agregarCliente(cliente: Cliente): boolean
     +buscarCliente(rut: String): int
     +obtenerCliente(posicion: int): Cliente
 }
 
-class Mesa{}
+class Mesa{
+    -id: int
+    -tipoJuego: String
+    -descripcion: String
+    -apuestaMin: int
+    -apuestaMax: int
+    -estado: boolean
+    +Mesa(id: int, tipoJuego: String, descripcion: String, apuestaMin: int,
+    apuestaMax: int, estado: boolean)
+    +get's()
+    +set's()
+}
 
-class ContenedorMesa{}
+class ContenedorMesa{
+    -listaMesas: Mesa[]
+    -cantMax: int
+    -cantActual: int
+    +ContenedorMesa(cantMax: int)
+    +agregarMesa(mesa: Mesa): boolean
+    +buscarMesa(id: int): int
+    +obtenerMesa(posicion: int): Mesa
+    }
 
-class Jugada{}
+class Jugada{
+    -fechaJugada: String
+    -apuesta: int
+    -resultado: String
+    -cliente: Cliente
+    -mesa: Mesa
+    +Jugada(fechaJugada: String, apuesta: int: resultado: String)
+    +get's()
+    +set's()
+}
 
-class ContenedorJugadas
+class ContenedorJugadas{
+    -listaJugadas: Jugada[]
+    -cantMax: int
+    -cantActual: int
+    +ContenedorJugadas(cantMax: int)
+    +agregarJugada(jugada: Jugada): boolean
+    +buscarJugada(rut: String): int
+    +obtenerJugada(posicion: int): Jugada
+}
 
 class SistemaCasinoImpl{
     -listadoClientes: ContenedorClientes
@@ -50,7 +91,5 @@ interface SistemaCasino{
     +AdministrarMesas()
     +MostrarEstadistica()
     +CerrarSesion()
-
-
 }
 @enduml
