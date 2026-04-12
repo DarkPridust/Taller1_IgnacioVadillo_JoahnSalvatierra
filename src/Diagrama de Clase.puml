@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Cliente{
+    -rut: String
+    -nombre: String
+    -apellidoPaterno: String
+    -apellidoMaterno: String
+    -nombreUsuario: String
+    -contrasenia: String
+    -categoriaSocio: String
+    +Cliente(rut: String, nombre: String, apellidoPaterno: String, apellidoMaterno: String,
+    nombreUsuario: String, contrasenia: String, categoriaSocio: String)
+
+}
+
+class ContenedorClientes{
+    +agregarCliente(cliente: Cliente): boolean
+    +buscarCliente(rut: String): int
+    +obtenerCliente(posicion: int): Cliente
+}
+
+class Mesa{}
+
+class ContenedorMesa{}
+
+class Jugada{}
+
+class ContenedorJugadas
+
+class SistemaCasinoImpl{
+    -listadoClientes: ContenedorClientes
+    +SistemaCasinoImpl()
+}
+
+
+interface SistemaCasino{
+    +IniciarSesion(nombreUsuario: String, contrasenia: String): void
+    +RegistrarUsuario(nombre: String, apellidoPaterno: String, apellidoMaterno: String,
+    rut: String, nombreUsuario: String)
+    +Salir()
+    +RegistrarSesion(): void
+    +MostrarHistorial(): void
+    +GestionarCuenta(): void
+    +VerDatos(): void
+    +CambiarDeCategoria(opcion: String): void
+    +CambiarContraseña(contraseniaActual: String, contraseniaNueva): void
+    +Volver()
+    +VerMesasDisponibles()
+    +AdministrarMesas()
+    +MostrarEstadistica()
+    +CerrarSesion()
+
+
+}
+@enduml

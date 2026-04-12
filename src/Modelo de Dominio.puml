@@ -1,0 +1,39 @@
+@startuml
+
+left to right direction
+entity Cliente{
+    rut
+    nombre
+    apellido paterno
+    apellido materno
+    nombre de usuario
+    contraseña
+    categoria de socio
+}
+
+entity Mesa{
+    id de la mesa
+    tipo de juego
+    descripción
+    apuesta maxima
+    apuesta minima
+    estado
+}
+
+entity Jugada{
+    rut del cliente
+    id de mesa
+    fecha del juego
+    apuesta
+    resultado
+}
+
+Cliente "1" --> "1..*" Mesa: Genera >
+note on link: Si el cliente tiene la categoria\nsocio Platino, puede\nadministrar las mesas
+
+Mesa "1" --> "1" Jugada: Se realiza >
+Jugada "1" --> "1" Cliente: Participa >
+
+
+
+@enduml
