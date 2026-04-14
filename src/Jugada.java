@@ -35,26 +35,50 @@ public class Jugada {
         this.resultado = resultado;
     }
 
+    /**
+     * Obtiene
+     * @return
+     */
     public String getFecha() {
         return fecha;
     }
 
+    /**
+     * Establece
+     * @param fecha
+     */
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
+    /**
+     * Obtiene
+     * @return
+     */
     public int getApuesta() {
         return apuesta;
     }
 
+    /**
+     * Establece
+     * @param apuesta
+     */
     public void setApuesta(int apuesta) {
         this.apuesta = apuesta;
     }
 
+    /**
+     * Obtiene
+     * @return
+     */
     public String getResultado() {
         return resultado;
     }
 
+    /**
+     * Establece
+     * @param resultado
+     */
     public void setResultado(String resultado) {
         this.resultado = resultado;
     }

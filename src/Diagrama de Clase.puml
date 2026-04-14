@@ -40,7 +40,7 @@ class Mesa{
     +set's()
 }
 
-class ContenedorMesa{
+class ContenedorMesas{
     -listaMesas: Mesa[]
     -cantMax: int
     -cantActual: int
@@ -49,7 +49,7 @@ class ContenedorMesa{
     +buscarMesa(id: int): int
     +obtenerMesa(posicion: int): Mesa
     }
-ContenedorMesa"1"o-->"*"Mesa
+ContenedorMesas"1"o-->"*"Mesa
 
 class Jugada{
     -fechaJugada: String
@@ -79,7 +79,7 @@ class SistemaCasinoImpl{
 }
 
 SistemaCasinoImpl"1"--->"1"ContenedorClientes: posee
-SistemaCasinoImpl"1"--->"1"ContenedorMesa: posee
+SistemaCasinoImpl"1"--->"1"ContenedorMesas: posee
 SistemaCasinoImpl"1"--->"1"SistemaCasino: implementa
 SistemaCasinoImpl"1"--->"1"ContenedorJugadas: posee
 

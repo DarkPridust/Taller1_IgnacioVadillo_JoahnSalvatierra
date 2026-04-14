@@ -47,50 +47,98 @@ public class Mesa {
         this.estado = estado;
     }
 
+    /**
+     * Obtiene
+     * @return
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Establece
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Obtiene
+     * @return
+     */
     public String getTipoJuego() {
         return tipoJuego;
     }
 
+    /**
+     * Establece
+     * @param tipoJuego
+     */
     public void setTipoJuego(String tipoJuego) {
         this.tipoJuego = tipoJuego;
     }
 
+    /**
+     * Obtiene
+     * @return
+     */
     public String getDescripcion() {
         return descripcion;
     }
 
+    /**
+     * Establece
+     * @param descripcion
+     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
+    /**
+     * Obtiene
+     * @return
+     */
     public int getApuestaMin() {
         return apuestaMin;
     }
 
+    /**
+     * Establece
+     * @param apuestaMin
+     */
     public void setApuestaMin(int apuestaMin) {
         this.apuestaMin = apuestaMin;
     }
 
+    /**
+     * Obtiene
+     * @return
+     */
     public int getApuestaMax() {
         return apuestaMax;
     }
 
+    /**
+     * Establece
+     * @param apuestaMax
+     */
     public void setApuestaMax(int apuestaMax) {
         this.apuestaMax = apuestaMax;
     }
 
+    /**
+     * Obtiene
+     * @return
+     */
     public boolean isEstado() {
         return estado;
     }
 
+    /**
+     * Establece
+     * @param estado
+     */
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
