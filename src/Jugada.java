@@ -36,48 +36,51 @@ public class Jugada {
     }
 
     /**
-     * Obtiene
-     * @return
+     * Obtiene la fecha de la jugada
+     * @return un String con la fecha de la jugada
      */
     public String getFecha() {
         return fecha;
     }
 
     /**
-     * Establece
-     * @param fecha
+     * Establece la fecha de la jugada
+     * * <p> La fecha de la jugada debe de ser exactamente el dia en el que se realizo</p>
+     * @param fecha un String con la fecha de la jugada
      */
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
     /**
-     * Obtiene
-     * @return
+     * Obtiene la  apuesta de la jugada
+     * @return un entero con la apuesta de la jugada
      */
     public int getApuesta() {
         return apuesta;
     }
 
     /**
-     * Establece
-     * @param apuesta
+     * Establece la  apuesta de la jugada
+     * * <p> La apuesta debe de estar en el rango entre la apuesta minima y apuesta maxima de la mesa</p>
+     * @param apuesta un entero con la apuesta de la jugada
      */
     public void setApuesta(int apuesta) {
         this.apuesta = apuesta;
     }
 
     /**
-     * Obtiene
-     * @return
+     * Obtiene el resultado de la jugada
+     * @return un String con el resultado de la jugada
      */
     public String getResultado() {
         return resultado;
     }
 
     /**
-     * Establece
-     * @param resultado
+     * Establece el resultado de la jugada
+     * * <p> los unicos resultados posibles son Ganado y Perdido</p>
+     * @param resultado un String con el resultado de la jugada
      */
     public void setResultado(String resultado) {
         this.resultado = resultado;

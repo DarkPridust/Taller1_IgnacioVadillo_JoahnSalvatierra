@@ -25,7 +25,7 @@ public class Mesa {
     /**
      *estado de la mesa (cerrada/disponible)
      */
-    private boolean estado;
+    private String estado;
 
     /**
      * El contructor de la clase Cliente
@@ -37,7 +37,7 @@ public class Mesa {
      * @param estado
      */
     public Mesa(int id, String tipoJuego, String descripcion, int apuestaMin,
-                int apuestaMax, boolean estado) {
+                int apuestaMax, String estado) {
 
         this.id = id;
         this.tipoJuego = tipoJuego;
@@ -48,98 +48,104 @@ public class Mesa {
     }
 
     /**
-     * Obtiene
-     * @return
+     * Obtiene el identificador de la mesa
+     * @return un entero con el id
      */
     public int getId() {
         return id;
     }
 
     /**
-     * Establece
-     * @param id
+     * Establece el identificador de la mesa
+     * <p> Se genera de manera automaticamente y no se repite entre mesas</p>
+     * @param id un entero con el identificador de la mesa
      */
     public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * Obtiene
-     * @return
+     * Obtiene el tiopo de juego de la mesa
+     * @return un String con el tipo de juego de la mesa
      */
     public String getTipoJuego() {
         return tipoJuego;
     }
 
     /**
-     * Establece
-     * @param tipoJuego
+     * Establece el tipo de juego de la mesa
+     * *<p> El tpo de juego puede cualquiera</p>
+     * @param tipoJuego un String con el tipo de juego de la mesa
      */
     public void setTipoJuego(String tipoJuego) {
         this.tipoJuego = tipoJuego;
     }
 
     /**
-     * Obtiene
-     * @return
+     * Obtiene la descripcion de la mesa
+     * @return un String con la descripción de la mesa
      */
     public String getDescripcion() {
         return descripcion;
     }
 
     /**
-     * Establece
-     * @param descripcion
+     * Establece la descripcion de la mesa
+     * *<p> la descripcion puede contener cualquier cantidad de caracteres</p>
+     * @param descripcion un String con la descripcion de la mesa
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
     /**
-     * Obtiene
-     * @return
+     * Obtiene la apuesta minima de la mesa
+     * @return un entero con la apuesta minima
      */
     public int getApuestaMin() {
         return apuestaMin;
     }
 
     /**
-     * Establece
-     * @param apuestaMin
+     * Establece la apuesta minima de la mesa
+     * *<p>No puede ser un valor negativo o igual a cero, ni mayor a la apuesta maxima </p>
+     * @param apuestaMin un entero con la apuesta minima de la mesa
      */
     public void setApuestaMin(int apuestaMin) {
         this.apuestaMin = apuestaMin;
     }
 
     /**
-     * Obtiene
-     * @return
+     * Obtiene la apuesta maxima de la mesa
+     * @return un entero con la apuesta maxima
      */
     public int getApuestaMax() {
         return apuestaMax;
     }
 
     /**
-     * Establece
-     * @param apuestaMax
+     * Establece la apuesta maxima
+     * *<p>No puede ser menor a la apuesta inicial, ni tampoco caracteres</p>
+     * @param apuestaMax un entero con la apuesta maxima de la mesa
      */
     public void setApuestaMax(int apuestaMax) {
         this.apuestaMax = apuestaMax;
     }
 
     /**
-     * Obtiene
-     * @return
+     * Obtiene el estado de la mesa
+     * @return un string con el estado de la mesa
      */
-    public boolean isEstado() {
+    public String isEstado() {
         return estado;
     }
 
     /**
-     * Establece
-     * @param estado
+     * Establece el estado de la mesa
+     * * <p> los unicos estados posibles son disponible y cerrada </p>
+     * @param estado un String con el estado de la mesa (disponible/cerrada)
      */
-    public void setEstado(boolean estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 }
