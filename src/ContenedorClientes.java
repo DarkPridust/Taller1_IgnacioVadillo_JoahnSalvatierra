@@ -58,4 +58,20 @@ public class ContenedorClientes {
     public int getCantActualCliente(){
         return this.cantActualCliente;
     }
+
+    /**
+     * Busca un cliente por su nombre de usuario
+     * @param nombreUsuario un String con el nombre del usuario
+     * @return un objeto de clase cliente
+     */
+    public Cliente buscarCliente(String nombreUsuario){
+        for(int i = 0; i < this.cantActualCliente; i++){
+            Cliente act = clientes[i];
+
+            if (act.getNombreUsuario().equals(nombreUsuario)){
+                return act;
+            }
+        }
+        return null;
+    }
 }

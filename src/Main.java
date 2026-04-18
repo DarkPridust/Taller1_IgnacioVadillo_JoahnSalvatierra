@@ -6,7 +6,14 @@ import ucn.StdOut;
 
 public class Main {
     public static void main(String[] args) {
-        iniciarSistemaCasino();
+
+    // iniciar el sistema
+    SistemaCasino sistemaCasino =new SistemaCasinoImpl(100,10000,1000);
+    sistemaCasino.cargaDeDatos();
+    iniciarSistemaCasino();
+
+
+
 
 
     }
