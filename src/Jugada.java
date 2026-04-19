@@ -3,6 +3,14 @@
  */
 public class Jugada {
     /**
+     * rut del cliente asociado
+     */
+    private String rutCliente;
+    /**
+     * id de la mesa asociada
+     */
+    private int idMesa;
+    /**
      * fecha registrada de la jugada
      */
     private String fecha;
@@ -23,13 +31,9 @@ public class Jugada {
      */
     private Mesa mesa;
 
-    /**
-     * Contructor de la clase jugada
-     * @param fecha
-     * @param apuesta
-     * @param resultado
-     */
-    public Jugada(String fecha, int apuesta, String resultado) {
+    public Jugada(String rutCliente, int idMesa, String fecha, int apuesta, String resultado) {
+        this.rutCliente = rutCliente;
+        this.idMesa = idMesa;
         this.fecha = fecha;
         this.apuesta = apuesta;
         this.resultado = resultado;
