@@ -87,17 +87,17 @@ interface SistemaCasino{
     +IniciarSesion(nombreUsuario: String, contrasenia: String): void
     +RegistrarUsuario(nombre: String, apellidoPaterno: String, apellidoMaterno: String,
     rut: String, nombreUsuario: String)
-    +Salir()
+    +Salir(): void
     +RegistrarSesion(): void
     +MostrarHistorial(): void
     +GestionarCuenta(): void
     +VerDatos(): void
     +CambiarDeCategoria(opcion: String): void
     +CambiarContraseña(contraseniaActual: String, contraseniaNueva): void
-    +Volver()
-    +VerMesasDisponibles()
-    +AdministrarMesas()
-    +MostrarEstadistica()
-    +CerrarSesion()
+    +Volver(): void
+    +VerMesasDisponibles(): String
+    +AdministrarMesas(): void
+    +MostrarEstadistica(): String
+    +CerrarSesion(): void
 }
 @enduml

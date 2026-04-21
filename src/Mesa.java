@@ -136,7 +136,7 @@ public class Mesa {
      * Obtiene el estado de la mesa
      * @return un string con el estado de la mesa
      */
-    public String isEstado() {
+    public String getEstado() {
         return estado;
     }
 
@@ -148,4 +148,5 @@ public class Mesa {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
 }

@@ -13,7 +13,7 @@ public interface SistemaCasino {
     //Operaciones del sistema
     public boolean iniciarSesion(String nombreUsuario, String contrasenia);
     public String desplegarMesaDisponible();
-    public String registrarSesionJuego(String fecha, double resultado);
+    public boolean registrarSesionJuego(int id, int monto, String nombreUsuario);
     public String comprobanteSesionJuego();
     public String consultarHistorial(String fecha);
 }

@@ -40,6 +40,38 @@ public class Jugada {
     }
 
     /**
+     * obtiene el rut del cliente asociado
+     * @return un String con el rut del cliente asociado
+     */
+    public String getRutCliente() {
+        return rutCliente;
+    }
+
+    /**
+     * Establece el rut del cliente asociado
+     * @param rutCliente un String con el rut del cliente aspciado
+     */
+    public void setRutCliente(String rutCliente) {
+        this.rutCliente = rutCliente;
+    }
+
+    /**
+     * obtiene el id de la mesa asociada
+     * @return un entero con el id de la mesa asociada
+     */
+    public int getIdMesa() {
+        return idMesa;
+    }
+
+    /**
+     * establece el id de la mesa asociada
+     * @param idMesa un entero con el id de la mesa asociada
+     */
+    public void setIdMesa(int idMesa) {
+        this.idMesa = idMesa;
+    }
+
+    /**
      * Obtiene la fecha de la jugada
      * @return un String con la fecha de la jugada
      */

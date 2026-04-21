@@ -1,8 +1,22 @@
+//Para leer los documentos txt
 import ucn.ArchivoEntrada;
 import ucn.ArchivoSalida;
 import ucn.Registro;
 
+//Para manejar las excepciones dentro de la lectura de datos
 import java.io.IOException;
+
+//Para manejar la impresion y lectura
+import ucn.StdOut;
+import ucn.StdIn;
+
+//Para procesar el dia que contiene el sistema
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+//Para determinar el resultado de la Jugada
+import java.util.Random;
+
 
 
 public class SistemaCasinoImpl implements SistemaCasino{
@@ -59,10 +73,7 @@ public class SistemaCasinoImpl implements SistemaCasino{
 
             ingresarMesa(id, tipoJuego, descripcion, montoMin, montoMax, estado);
         }
-
-
     }
-
 
     @Override
     public boolean ingresarCliente(String rut, String nombre, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String categoriaSocio) {
@@ -95,12 +106,60 @@ public class SistemaCasinoImpl implements SistemaCasino{
 
     @Override
     public String desplegarMesaDisponible() {
-        return "";
+        StringBuilder mensaje = new StringBuilder();
+
+        for(int i = 0; i < this.contenedorMesas.getCantidadActual(); i++){
+            Mesa m = this.contenedorMesas.obtenerMesa(i);
+
+            if(m.getEstado().equals("Disponible")){
+
+                mensaje.append("**********\n");
+                mensaje.append("ID: ").append(m.getId()).append("\n");
+                mensaje.append("Juego: ").append(m.getTipoJuego()).append("\n");
+                mensaje.append("Descripción: ").append(m.getDescripcion()).append("\n");
+                mensaje.append("Apuesta minima: ").append(m.getApuestaMin()).append("\n");
+                mensaje.append("Apuesta Maxima: ").append(m.getApuestaMax()).append("\n");
+                mensaje.append("Estado: ").append(m.getEstado()).append("\n");
+                mensaje.append("**********\n\n");
+            }
+        }
+        return mensaje.toString();
     }
 
     @Override
-    public String registrarSesionJuego(String fecha, double resultado) {
-        return "";
+    public boolean registrarSesionJuego(int id, int monto, String nombreUsuario){
+        //Se obtiene la fecha actual del dispositivo y se establecce con el orden dia/Mes/año
+        LocalDateTime fechaActual = LocalDateTime.now();
+        DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String fecha = fechaActual.format(formatoFecha);
+
+        //Con el nombre de usuario del cliente guardado al iniciar sesion se obtiene su rut
+        Cliente c = this.contenedorClientes.buscarCliente(nombreUsuario);
+        String rut = c.getRut();
+
+        //Asociar la mesa que eligio el cliente
+        Mesa m = this.contenedorMesas.obtenerMesaPorId(id);
+        if(m == null || !m.getEstado().equals("Disponible")) {return false;}
+
+        if(monto < m.getApuestaMin() || monto > m.getApuestaMax()){ return false;}
+
+        //Obtener resultado
+        Random random = new Random();
+        double suerte = random.nextDouble();
+
+        String resultado = "";
+
+        if(suerte < 0.45){
+            //Se determino una jugada Ganada
+            resultado = "Ganada";
+        } else {
+            // Se determino una jugada Perdida
+            resultado = "Perdida";
+        }
+        // Crear y Agregar la jugada
+        Jugada j = new Jugada(rut, id, fecha, monto, resultado);
+        this.contenedorJugadas.agregarJugada(j);
+        return true;
     }
 
     @Override
