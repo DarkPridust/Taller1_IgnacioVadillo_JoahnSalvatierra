@@ -32,6 +32,15 @@ public class ContenedorClientes {
      */
     public boolean agregarCliente(Cliente cliente){
         if(this.cantActualCliente >= cantMaxClientes){
+            System.err.println("No se puede agregar más empleados. Capacidad maxima alcanzada.");
+            return false;
+        }
+        if (this.buscarClientePorRut(cliente.getRut()) != null){
+            System.err.println("Ya existe un cliente con el RUT: " + cliente.getRut());
+            return false;
+        }
+        if (this.buscarClientePorNombre(cliente.getNombreUsuario()) != null){
+            System.err.println("Ya existe un cliente con el nombre de usuario: " + cliente.getNombreUsuario());
             return false;
         }
         this.clientes[cantActualCliente] = cliente;
@@ -64,12 +73,24 @@ public class ContenedorClientes {
      * @param nombreUsuario un String con el nombre del usuario
      * @return un objeto de clase cliente
      */
-    public Cliente buscarCliente(String nombreUsuario){
+    public Cliente buscarClientePorNombre(String nombreUsuario){
         for(int i = 0; i < this.cantActualCliente; i++){
-            Cliente act = clientes[i];
+            if (this.clientes[i].getRut().equals(nombreUsuario)){
+                return this.clientes[i];
+            }
+        }
+        return null;
+    }
 
-            if (act.getNombreUsuario().equals(nombreUsuario)){
-                return act;
+    /**
+     * Busca un cliente por su rut
+     * @param rut un String con el RUT del usuario
+     * @return un objeto de clase cliente
+     */
+    public Cliente buscarClientePorRut(String rut){
+        for(int i = 0; i < this.cantActualCliente; i++){
+            if (this.clientes[i].getRut().equals(rut)){
+                return this.clientes[i];
             }
         }
         return null;

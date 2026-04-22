@@ -10,16 +10,15 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
     // inicio del sistema
-    SistemaCasino sistema = new SistemaCasinoImpl(100,10000,1000);
+    SistemaCasinoImpl sistema = new SistemaCasinoImpl(100,10000,1000);
     sistema.cargaDeDatos();
     iniciarSistemaCasino(sistema);
     }
 
     //Menu principal del sistema
-    public static void iniciarSistemaCasino(SistemaCasino sistema){
+    public static void iniciarSistemaCasino(SistemaCasinoImpl sistema){
         int opcion = 0;
-
-        while(opcion != 3){
+        do{
             StdOut.println("==== Casino Royal Aires ====");
             StdOut.println("[1] Iniciar sesion");
             StdOut.println("[2] Registrar cliente");
@@ -47,7 +46,7 @@ public class Main {
 
                 case 2:
                     StdOut.println("--------------------");
-
+                    registroNuevoCliente(sistema);
                     StdOut.println("--------------------");
                     break;
 
@@ -61,11 +60,11 @@ public class Main {
                     StdOut.println("La opcion ingresada es incorrecta");
                     break;
             }
-        }
+        }while(opcion != 3);
     }
 
     //Menu del usuario una vez inicia sesion
-    public static void menuUsuario(SistemaCasino sistema, String nombreUsuario){
+    public static void menuUsuario(SistemaCasinoImpl sistema, String nombreUsuario){
         int opcion1 = 0;
         while(opcion1 != 7){
             StdOut.println("----- Bienvenido " + nombreUsuario + "-----");
@@ -114,6 +113,26 @@ public class Main {
                     break;
             }
         }
+    }
+
+    public static void registroNuevoCliente(SistemaCasinoImpl sistema){
+        StdOut.println("------- Registrar Cliente --------");
+        StdOut.println("Ingrese el nombre del nuevo cliente.");
+        String nombre = StdIn.readString();
+        StdOut.println("Ingrese el apellido paterno del nuevo cliente.");
+        String apellidoPaterno = StdIn.readString();
+        StdOut.println("Ingrese el apellido materno del nuevo cliente.");
+        String apellidoMaterno = StdIn.readString();
+        StdOut.println("Ingrese el RUT del nuevo cliente (En formato: 12.345.678-9).");
+        String rutCliente = StdIn.readString();
+        StdOut.println("Ingrese el nombre de usuario del nuevo cliente.");
+        String nombreUsuario = StdIn.readString();
+
+        String rutSinVerificador = rutCliente.replaceAll("[^0-9]", "");
+        String contrasenia = rutSinVerificador.substring(0, rutSinVerificador.length()-1);
+
+        sistema.ingresarCliente(rutCliente,nombre,apellidoPaterno,apellidoMaterno,nombreUsuario,contrasenia,"Normal");
+        System.out.print("El cliente ha sido registrado exitosamente.");
     }
 }
 

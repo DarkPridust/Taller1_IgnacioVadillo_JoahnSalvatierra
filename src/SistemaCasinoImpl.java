@@ -95,7 +95,7 @@ public class SistemaCasinoImpl implements SistemaCasino{
 
     @Override
     public boolean iniciarSesion(String nombreUsuario, String contrasenia) {
-        Cliente c = contenedorClientes.buscarCliente(nombreUsuario);
+        Cliente c = contenedorClientes.buscarClientePorNombre(nombreUsuario);
         if(c != null){
             if(c.getContrasenia().equals(contrasenia)){
                 return true;
@@ -134,7 +134,7 @@ public class SistemaCasinoImpl implements SistemaCasino{
         String fecha = fechaActual.format(formatoFecha);
 
         //Con el nombre de usuario del cliente guardado al iniciar sesion se obtiene su rut
-        Cliente c = this.contenedorClientes.buscarCliente(nombreUsuario);
+        Cliente c = this.contenedorClientes.buscarClientePorNombre(nombreUsuario);
         String rut = c.getRut();
 
         //Asociar la mesa que eligio el cliente
