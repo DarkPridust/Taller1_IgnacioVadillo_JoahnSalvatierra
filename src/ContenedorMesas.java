@@ -62,10 +62,8 @@ public class ContenedorMesas {
 
     public Mesa obtenerMesaPorId(int id){
         for(int i = 0; i < this.cantActualMesa; i++){
-            Mesa m = mesas[i];
-
-            if (m.getId() == id){
-                return m;
+            if (mesas[i].getId() == id){
+                return mesas[i];
             }
         }
         return null;

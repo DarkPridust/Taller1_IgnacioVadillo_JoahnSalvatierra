@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 /**
  *Representa a la entidad Jugada
  */
@@ -7,13 +9,13 @@ public class Jugada {
      */
     private String rutCliente;
     /**
-     * id de la mesa asociada
+     * fecha de hoy
      */
-    private int idMesa;
+    private LocalDateTime fechaHoy;
     /**
      * fecha registrada de la jugada
      */
-    private String fecha;
+    private String fechaJugada;
     /**
      * apuesta realizada
      */
@@ -23,20 +25,17 @@ public class Jugada {
      */
     private String resultado;
     /**
-     * Cliente asociado a la jugada
-     */
-    private Cliente cliente;
-    /**
      * Mesa asociada a la jugada
      */
     private Mesa mesa;
 
-    public Jugada(String rutCliente, int idMesa, String fecha, int apuesta, String resultado) {
+    public Jugada(String rutCliente, Mesa mesa, String fechaJugada, int apuesta, String resultado) {
         this.rutCliente = rutCliente;
-        this.idMesa = idMesa;
-        this.fecha = fecha;
+        this.mesa = mesa;
+        this.fechaJugada = fechaJugada;
         this.apuesta = apuesta;
         this.resultado = resultado;
+        this.fechaHoy = LocalDateTime.now();
     }
 
     /**
@@ -49,43 +48,35 @@ public class Jugada {
 
     /**
      * Establece el rut del cliente asociado
-     * @param rutCliente un String con el rut del cliente aspciado
+     * @param rutCliente un String con el rut del cliente asociado
      */
     public void setRutCliente(String rutCliente) {
         this.rutCliente = rutCliente;
     }
 
     /**
-     * obtiene el id de la mesa asociada
-     * @return un entero con el id de la mesa asociada
+     * obtiene la mesa asociada
+     * @return Un objeto Mesa que contiene la mesa asociada
      */
-    public int getIdMesa() {
-        return idMesa;
-    }
-
-    /**
-     * establece el id de la mesa asociada
-     * @param idMesa un entero con el id de la mesa asociada
-     */
-    public void setIdMesa(int idMesa) {
-        this.idMesa = idMesa;
+    public Mesa getMesa() {
+        return mesa;
     }
 
     /**
      * Obtiene la fecha de la jugada
      * @return un String con la fecha de la jugada
      */
-    public String getFecha() {
-        return fecha;
+    public String getFechaJugada() {
+        return fechaJugada;
     }
 
     /**
      * Establece la fecha de la jugada
      * * <p> La fecha de la jugada debe de ser exactamente el dia en el que se realizo</p>
-     * @param fecha un String con la fecha de la jugada
+     * @param fechaJugada un String con la fecha de la jugada
      */
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFecha(String fechaJugada) {
+        this.fechaJugada = fechaJugada;
     }
 
     /**
@@ -121,4 +112,13 @@ public class Jugada {
     public void setResultado(String resultado) {
         this.resultado = resultado;
     }
+
+    public LocalDateTime getFechaHoy() {
+        return fechaHoy;
+    }
+
+    public void setFechaHoy(LocalDateTime fechaHoy) {
+        this.fechaHoy = fechaHoy;
+    }
+
 }

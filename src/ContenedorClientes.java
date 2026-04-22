@@ -75,7 +75,7 @@ public class ContenedorClientes {
      */
     public Cliente buscarClientePorNombre(String nombreUsuario){
         for(int i = 0; i < this.cantActualCliente; i++){
-            if (this.clientes[i].getRut().equals(nombreUsuario)){
+            if (this.clientes[i].getNombreUsuario().equals(nombreUsuario)){
                 return this.clientes[i];
             }
         }
@@ -94,5 +94,16 @@ public class ContenedorClientes {
             }
         }
         return null;
+    }
+
+    public boolean puedeJugar(String nivelSocio, int jugadasHoy){
+        if(nivelSocio.equals("Normal") || nivelSocio.equals("Plata")){
+            return jugadasHoy < 1;
+        }else if(nivelSocio.equals("Oro")){
+            return jugadasHoy < 2;
+        }else if(nivelSocio.equals("Platino")){
+            return true;
+        }
+        return false;
     }
 }

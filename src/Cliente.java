@@ -167,4 +167,6 @@ public class Cliente {
     public void setCategoriaSocio(String categoriaSocio) {
         this.categoriaSocio = categoriaSocio;
     }
+
+    public String getNombreCompleto() {return nombre +" "+apellidoPaterno +" "+apellidoMaterno;}
 }

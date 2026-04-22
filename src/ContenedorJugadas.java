@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+
 /**
  * Representa la identidad ContenedorJugagadas
  */
@@ -57,5 +59,32 @@ public class ContenedorJugadas {
      */
     public int getCantidadActualjugadas(){
         return this.cantActualJugada;
+    }
+
+    public int contarJugadas(String rutCliente){
+        LocalDateTime hoy = LocalDateTime.now();
+        int contador = 0;
+        for(int i = 0; i < this.cantActualJugada; i++){
+            if(jugadas[i].getRutCliente().equals(rutCliente) && jugadas[i].getFechaHoy().toLocalDate().equals(hoy)){
+                contador++;
+            }
+        }
+        return contador;
+    }
+
+    public void ordenarJugadas(){
+        for (int i = 0; i < this.cantActualJugada - 1; i++) {
+            for (int j = 0; j < this.cantActualJugada - 1 - i; j++) {
+                if (jugadas[j].getFechaHoy().isBefore(jugadas[j + 1].getFechaHoy())) {
+                    Jugada temp = jugadas[j];
+                    jugadas[j] = jugadas[j + 1];
+                    jugadas[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    public Jugada getJugadas(int i) {
+        return jugadas[i];
     }
 }
