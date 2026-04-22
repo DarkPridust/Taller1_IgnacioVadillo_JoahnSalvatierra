@@ -91,12 +91,18 @@ public class Main {
                     break;
 
                 case 3:
+                    gestionarCuenta(sistema, nombreUsuario);
                     break;
 
                 case 4:
+                    // Se despliegan todas las mesas disponibles
+                    sistema.desplegarMesaDisponible();
                     break;
 
                 case 5:
+                    // se llama a la funcion para vereificar categoria del cliente y proceder
+                    sistema.administrarMesas(nombreUsuario);
+                    menuAdministrarMesas(sistema, nombreUsuario);
                     break;
 
                 case 6:
@@ -132,6 +138,97 @@ public class Main {
         sistema.ingresarCliente(rutCliente,nombre,apellidoPaterno,apellidoMaterno,nombreUsuario,contrasenia,"Normal");
         System.out.print("El cliente ha sido registrado exitosamente.\n");
     }
+
+    public static void gestionarCuenta(SistemaCasinoImpl sistema, String nombreUsuario){
+        int opcionG = 0;
+        do{
+            StdOut.println("\n===== Gestion de cuenta =====");
+            StdOut.println("[1] Ver datos personales");
+            StdOut.println("[2] Subir de categoria");
+            StdOut.println("[3] Cambiar contraseña");
+            StdOut.println("[4] Volver");
+            opcionG = StdIn.readInt();
+
+            switch(opcionG){
+
+                case 1:
+                    //Imprime los datos personales del usuario
+                    sistema.verDatosPersonales(nombreUsuario);
+                    break;
+
+                case 2:
+
+                    break;
+
+                case 3:
+                    //Solicita la contraseña actual
+                    StdOut.println("Ingrese la contrase actual: ");
+                    String contraseniaActual = StdIn.readString();
+
+                    //Solicita la nueva contraseña
+                    StdOut.println("Requisitos: La nueva contraseña debe de ser diferente a la anterrior" +
+                            "contener al menos 1 mayuscula, contener al menos un número y debe de superar o ser igual a 8 caracteres");
+                    StdOut.println("Ingrese la nueva contraseña");
+                    String nuevaContrasenia = StdIn.readString();
+
+                    //Llama a la funcion nuevaContrania para validar lo ingresado
+                    sistema.cambiarContrasenia(nombreUsuario, contraseniaActual, nuevaContrasenia);
+                    break;
+
+                case 4:
+                    StdOut.println("Volviendo al menú anterior");
+                    break;
+
+                default:
+                    StdOut.println("La opcion ingresada es invalida");
+                    break;
+            }
+        } while(opcionG != 4);
+    }
+
+    public static void menuAdministrarMesas(SistemaCasinoImpl sistema, String nombreUsuario){
+        boolean permiso = sistema.administrarMesas(nombreUsuario);
+        if(permiso){
+            int opcionM = 0;
+            do{
+                StdOut.println("===== Administracion de mesas =====");
+                StdOut.println("[1] Agregar nueva Mesa");
+                StdOut.println("[2] Cambiar estado de una mesa");
+                StdOut.println("[3] Volver al menu anterior");
+                opcionM = StdIn.readInt();
+
+                switch(opcionM){
+
+                    case 1:
+                        StdOut.println("------- Crear Mesa --------");
+                        StdOut.println("Ingrese el tipo de juego de la mesa: ");
+                        String tipo = StdIn.readString();
+                        StdOut.println("Ingrese la descripcion de la mesa");
+                        String descripcion = StdIn.readString();
+                        StdOut.println("Ingresa la apuesta minima de la mesa");
+                        int apuestaMin =StdIn.readInt();
+                        StdOut.println("Ingresa la apuesta maxima de la mesa");
+                        int apuestaMax = StdIn.readInt();
+                        StdOut.println("Ingrese el estado de la mesa (Disponible/Cerrada)");
+                        String estado = StdIn.readString();
+
+                        int idMesa = sistema.getCantidadActualMesas();
+
+                        sistema.ingresarMesa(idMesa, tipo, descripcion, apuestaMin, apuestaMax, estado);
+
+                    case 2:
+                        sistema.desplegarMesas();
+                        StdOut.println("Ingrese el id de la mesa que desee cambiar de estado");
+                        int id = StdIn.readInt();
+
+
+                    case 3:
+                        StdOut.println("Volviendo al menu anterior...\n");
+                }
+            } while(opcionM != 3);
+        }
+    }
 }
 
+// TODO validar 1.1.3.3 por diferente error, 1.1.5.a // Realizar 1.1.3.2 y 1.1.5.b
 

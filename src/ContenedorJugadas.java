@@ -61,6 +61,11 @@ public class ContenedorJugadas {
         return this.cantActualJugada;
     }
 
+    /***
+     * Cuenta la cantidad de jugadas asociadas a un rut y con fecha identica
+     * @param rutCliente un String con el rut del cliente
+     * @return un entero con la cantidad de jugadas
+     */
     public int contarJugadas(String rutCliente){
         LocalDateTime hoy = LocalDateTime.now();
         int contador = 0;
@@ -72,6 +77,9 @@ public class ContenedorJugadas {
         return contador;
     }
 
+    /**
+     * Funcion que ordena las jugadas por fecha de mas reciente a mas antigua
+     */
     public void ordenarJugadas(){
         for (int i = 0; i < this.cantActualJugada - 1; i++) {
             for (int j = 0; j < this.cantActualJugada - 1 - i; j++) {
@@ -84,6 +92,11 @@ public class ContenedorJugadas {
         }
     }
 
+    /**
+     * Obtiene una jugada por su posicion
+     * @param i un entero que representa la posicion
+     * @return un objeto Jugada
+     */
     public Jugada getJugadas(int i) {
         return jugadas[i];
     }

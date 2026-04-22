@@ -10,10 +10,18 @@ public interface SistemaCasino {
     public boolean ingresarMesa(int id, String tipoJuego, String descripcion, int apuestaMin, int apuestaMax, String estado);
     public boolean ingresarJugada(String rutCliente, Mesa mesa, String fecha, int apuesta, String resultado);
 
+    // Obtener cantidad actual de cada lista
+    public int getCantidadActualMesas();
     //Operaciones del sistema
     public boolean iniciarSesion(String nombreUsuario, String contrasenia);
     public void desplegarMesaDisponible();
     public void registrarSesionJuego(int id, int monto, String nombreUsuario);
     public void comprobanteSesionJuego(Cliente cliente, Jugada j);
     public void consultarHistorial(String nombreUsuario);
+    public boolean administrarMesas(String nombreUsuario);
+    public void verDatosPersonales(String nombreUsuario);
+    public void subirCategoria(String nombreusuario, Jugada j);
+    public boolean cambiarContrasenia(String nombreUsuario, String contraseniaActual, String nuevaContrasenia);
+    public void desplegarMesas();
+
 }
