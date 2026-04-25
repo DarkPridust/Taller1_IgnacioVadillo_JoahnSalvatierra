@@ -141,4 +141,7 @@ public class ContenedorClientes {
                 return "Platino";
         }
     }
+    public Cliente[] getContenedorClientes(){
+        return this.clientes;
+    }
 }

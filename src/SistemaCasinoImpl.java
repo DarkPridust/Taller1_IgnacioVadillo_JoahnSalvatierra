@@ -1,8 +1,5 @@
 //Para leer los documentos txt
-import ucn.ArchivoEntrada;
-import ucn.Registro;
-import ucn.StdIn;
-import ucn.StdOut;
+import ucn.*;
 
 //Para manejar las excepciones dentro de la lectura de datos
 import java.io.IOException;
@@ -19,18 +16,19 @@ import java.util.Random;
 /**
  * Se asocia el implementador con la interface
  */
-public class SistemaCasinoImpl implements SistemaCasino{
+public class SistemaCasinoImpl implements SistemaCasino {
     private ContenedorClientes contenedorClientes;
     private ContenedorMesas contenedorMesas;
     private ContenedorJugadas contenedorJugadas;
 
     /**
      * Funcion que crea inicializa el sistema
-     * @param cantMaxMesa un arreglo con la cantidad de mesas
-     * @param cantMaxJugada un arrego con la cantidad de jugadas
+     *
+     * @param cantMaxMesa     un arreglo con la cantidad de mesas
+     * @param cantMaxJugada   un arrego con la cantidad de jugadas
      * @param cantMaxClientes un arreglo con la cantidad de clientes
      */
-    public SistemaCasinoImpl(int cantMaxMesa, int cantMaxJugada, int cantMaxClientes){
+    public SistemaCasinoImpl(int cantMaxMesa, int cantMaxJugada, int cantMaxClientes) {
         this.contenedorClientes = new ContenedorClientes(cantMaxClientes);
         this.contenedorJugadas = new ContenedorJugadas(cantMaxJugada);
         this.contenedorMesas = new ContenedorMesas(cantMaxMesa);
@@ -38,15 +36,17 @@ public class SistemaCasinoImpl implements SistemaCasino{
 
     /**
      * Funcion que carga los datos de los archivos txt jugadas, clientes, mesas.
+     *
      * @throws IOException
      */
     @Override
     public void cargaDeDatos() throws IOException {
         // Lectura de clientes.txt
         ArchivoEntrada archivoEntradaClientes = new ArchivoEntrada("clientes.txt");
-        while(!archivoEntradaClientes.isEndFile()){
+        while (!archivoEntradaClientes.isEndFile()) {
 
             Registro regEnt = archivoEntradaClientes.getRegistro();
+
             String rut = regEnt.getString();
             String nombre = regEnt.getString();
             String apellidoPaterno = regEnt.getString();
@@ -55,14 +55,15 @@ public class SistemaCasinoImpl implements SistemaCasino{
             String contrasenia = regEnt.getString();
             String categoria = regEnt.getString();
 
-            ingresarCliente(rut, nombre, apellidoPaterno, apellidoMaterno,nombreUsuario,contrasenia, categoria);
+            ingresarCliente(rut, nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, categoria);
         }
 
         // Lectura de mesas.txt
         ArchivoEntrada archivoEntradaMesas = new ArchivoEntrada("mesas.txt");
-        while(!archivoEntradaMesas.isEndFile()){
+        while (!archivoEntradaMesas.isEndFile()) {
 
             Registro regEnt = archivoEntradaMesas.getRegistro();
+
             int id = regEnt.getInt();
             String tipoJuego = regEnt.getString();
             String descripcion = regEnt.getString();
@@ -74,9 +75,10 @@ public class SistemaCasinoImpl implements SistemaCasino{
         }
         // Lectura de jugadas.txt
         ArchivoEntrada archivoEntradaJugadas = new ArchivoEntrada("jugadas.txt");
-        while(!archivoEntradaJugadas.isEndFile()){
+        while (!archivoEntradaJugadas.isEndFile()) {
 
             Registro regEnt = archivoEntradaJugadas.getRegistro();
+
             String rutCliente = regEnt.getString();
             int idMesa = regEnt.getInt();
             String fecha = regEnt.getString();
@@ -84,19 +86,21 @@ public class SistemaCasinoImpl implements SistemaCasino{
             String resultado = regEnt.getString();
 
             Mesa mesa = contenedorMesas.obtenerMesaPorId(idMesa);
-            ingresarJugada(rutCliente,mesa,fecha,monto,resultado);
+            Cliente cliente = contenedorClientes.buscarClientePorRut(rutCliente);
+            ingresarJugada(cliente, mesa, fecha, monto, resultado);
         }
     }
 
     /**
      * Funcion que permite ingresar un cliente
-     * @param rut un String con el rut del cliente
-     * @param nombre un String con el nombre del cliente
+     *
+     * @param rut             un String con el rut del cliente
+     * @param nombre          un String con el nombre del cliente
      * @param apellidoPaterno un String con el apellido paterno del cliente
      * @param apellidoMaterno un String con el apellido materno del cliente
-     * @param nombreUsuario un String con el nombre de usuario del cliente
-     * @param contrasenia un String con la contraseña del cliente
-     * @param categoriaSocio un String con la categoria del cliente
+     * @param nombreUsuario   un String con el nombre de usuario del cliente
+     * @param contrasenia     un String con la contraseña del cliente
+     * @param categoriaSocio  un String con la categoria del cliente
      * @return un booleano que determina si se pudo o no ingresar el cliente
      */
     @Override
@@ -107,32 +111,34 @@ public class SistemaCasinoImpl implements SistemaCasino{
 
     /**
      * Funcion que permite ingresar una mesa
-     * @param id un entero con el id de la mesa
-     * @param tipoJuego un String con el tipo de juego de la mesa
+     *
+     * @param id          un entero con el id de la mesa
+     * @param tipoJuego   un String con el tipo de juego de la mesa
      * @param descripcion un String con la descripcion de la mesa
-     * @param apuestaMin un entero con la apuesta minima de la mesa
-     * @param apuestaMax un entero con la apuesta maxima de la mesa
-     * @param estado un String con el estado de la mesa
+     * @param apuestaMin  un entero con la apuesta minima de la mesa
+     * @param apuestaMax  un entero con la apuesta maxima de la mesa
+     * @param estado      un String con el estado de la mesa
      * @return un booleano que determina si se pudo o no ingresar la mesa
      */
     @Override
     public boolean ingresarMesa(int id, String tipoJuego, String descripcion, int apuestaMin, int apuestaMax, String estado) {
-        Mesa mesa = new Mesa(id, tipoJuego, descripcion, apuestaMin, apuestaMax,estado);
+        Mesa mesa = new Mesa(id, tipoJuego, descripcion, apuestaMin, apuestaMax, estado);
         return this.contenedorMesas.agregarMesa(mesa);
     }
 
     /**
      * Funcion que permite ingresar una jugada
-     * @param rutCliente un String con el rut del cliente
-     * @param mesa un objeto de tipo Mesa
-     * @param fecha un String con la fecha de la jugada
-     * @param apuesta un entero con la apuesta realizada
+     *
+     * @param cliente   un objeto con el rut del cliente
+     * @param mesa      un objeto de tipo Mesa
+     * @param fecha     un String con la fecha de la jugada
+     * @param apuesta   un entero con la apuesta realizada
      * @param resultado un String con el resultado de la jugada
      * @return un booleano que determina si se pudo o no ingresar la jugada
      */
     @Override
-    public boolean ingresarJugada(String rutCliente,Mesa mesa, String fecha, int apuesta, String resultado) {
-        Jugada jugada = new Jugada(rutCliente, mesa, fecha, apuesta, resultado);
+    public boolean ingresarJugada(Cliente cliente, Mesa mesa, String fecha, int apuesta, String resultado) {
+        Jugada jugada = new Jugada(cliente, mesa, fecha, apuesta, resultado);
         return this.contenedorJugadas.agregarJugada(jugada);
     }
 
@@ -140,11 +146,11 @@ public class SistemaCasinoImpl implements SistemaCasino{
      * Funcion que obtiene la cantidad actual de mesas
      * @return un entero con la cantidad actual de mesas
      */
-    public int getCantidadActualMesas(){
+    public int getCantidadActualMesas() {
         return contenedorMesas.getCantidadActual();
     }
 
-    public void registroNuevoCliente(){
+    public void registroNuevoCliente() {
         StdOut.println("------- Registrar Cliente --------");
         StdOut.println("Ingrese el nombre del nuevo cliente.");
         String nombre = StdIn.readString();
@@ -158,22 +164,23 @@ public class SistemaCasinoImpl implements SistemaCasino{
         String nombreUsuario = StdIn.readString();
 
         String rutSinVerificador = rutCliente.replaceAll("[^0-9]", "");
-        String contrasenia = rutSinVerificador.substring(0, rutSinVerificador.length()-1);
+        String contrasenia = rutSinVerificador.substring(0, rutSinVerificador.length() - 1);
 
-        ingresarCliente(rutCliente,nombre,apellidoPaterno,apellidoMaterno,nombreUsuario,contrasenia,"Normal");
+        ingresarCliente(rutCliente, nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, "Normal");
         System.out.print("El cliente ha sido registrado exitosamente.\n");
     }
 
     /**
      * Funcion que verifica los datos ingreasdos para iniciar sesion
+     *
      * @param nombreUsuario un String con el nombre de usuario
-     * @param contrasenia un String con la contraseña del usuario
+     * @param contrasenia   un String con la contraseña del usuario
      * @return un booleano que determina si se pudo o no iniciar sesion
      */
     @Override
     public boolean iniciarSesion(String nombreUsuario, String contrasenia) {
-        if(contenedorClientes.buscarClientePorNombre(nombreUsuario) != null){
-            if(contenedorClientes.buscarClientePorNombre(nombreUsuario).getContrasenia().equals(contrasenia)){
+        if (contenedorClientes.buscarClientePorNombre(nombreUsuario) != null) {
+            if (contenedorClientes.buscarClientePorNombre(nombreUsuario).getContrasenia().equals(contrasenia)) {
                 return true;
             }
         }
@@ -185,9 +192,9 @@ public class SistemaCasinoImpl implements SistemaCasino{
      */
     @Override
     public void desplegarMesaDisponible() {
-        for(int i = 0; i < this.contenedorMesas.getCantidadActual(); i++){
+        for (int i = 0; i < this.contenedorMesas.getCantidadActual(); i++) {
             Mesa m = this.contenedorMesas.obtenerMesa(i);
-            if(m.getEstado().equals("Disponible")){
+            if (m.getEstado().equals("Disponible")) {
                 System.out.println("**********");
                 System.out.println("ID: " + m.getId());
                 System.out.println("Juego: " + m.getTipoJuego());
@@ -202,17 +209,18 @@ public class SistemaCasinoImpl implements SistemaCasino{
 
     /**
      * Funcion que verifica y registra la jugada del cliente en una mesa
+     *
      * @param nombreUsuario un String con el nombre de usuario
-     * @param jugadasHoy la cantidad de jugadas realizadas por hoy
+     * @param jugadasHoy    la cantidad de jugadas realizadas por hoy
      */
     @Override
-    public void registrarSesionJuego(String nombreUsuario, int jugadasHoy){
+    public void registrarSesionJuego(String nombreUsuario, int jugadasHoy) {
         //Con el nombre de usuario del cliente guardado al iniciar sesion se obtiene su información para ser utilizado
         Cliente cliente = contenedorClientes.buscarClientePorNombre(nombreUsuario);
 
-        if(!contenedorClientes.puedeJugar(cliente.getCategoriaSocio(), jugadasHoy)){
+        if (!contenedorClientes.puedeJugar(cliente.getCategoriaSocio(), jugadasHoy)) {
             System.out.println("Ya no puede seguir jugando, ya alcanzó su limite de jugadas por hoy.");
-        }else{
+        } else {
             desplegarMesaDisponible();
             StdOut.println("Ingrese el id de la mesa en la que desea apostar: ");
             int id = StdIn.readInt();
@@ -222,12 +230,12 @@ public class SistemaCasinoImpl implements SistemaCasino{
             //Asociar la mesa que eligio el cliente
             Mesa m = this.contenedorMesas.obtenerMesaPorId(id);
 
-            if(m == null || !m.getEstado().equals("Disponible")) {
+            if (m == null || !m.getEstado().equals("Disponible")) {
                 System.out.println("No hay mesas disponibles para jugar.");
                 return;
             }
 
-            if(monto < m.getApuestaMin() || monto > m.getApuestaMax()){
+            if (monto < m.getApuestaMin() || monto > m.getApuestaMax()) {
                 System.out.println("El monto ingresado no entra en el rango de la mesa.");
                 return;
             }
@@ -243,18 +251,18 @@ public class SistemaCasinoImpl implements SistemaCasino{
 
             String resultado = "";
 
-            if(suerte < 0.45){
-                        //Se determina una jugada Ganada
-                        resultado = "Ganada";
+            if (suerte < 0.45) {
+                //Se determina una jugada Ganada
+                resultado = "Ganada";
                 System.out.println("\nFelicidades! la jugada ha sido: " + resultado);
             } else {
-                        // Se determina una jugada Perdida
-                        resultado = "Perdida";
+                // Se determina una jugada Perdida
+                resultado = "Perdida";
                 System.out.println("\nLastima, la jugada ha sido: " + resultado);
             }
             // Crear y Agregar la jugada
             System.out.println("Creando comprobante de la sesión...");
-            Jugada j = new Jugada(cliente.getRut(), m, fecha, monto, resultado);
+            Jugada j = new Jugada(cliente, m, fecha, monto, resultado);
             this.contenedorJugadas.agregarJugada(j);
             comprobanteSesionJuego(cliente, j);
         }
@@ -262,8 +270,9 @@ public class SistemaCasinoImpl implements SistemaCasino{
 
     /**
      * Funcion que genera el comprobante de la jugada realizada por el cliente
+     *
      * @param cliente un objeto de tipo Cliente
-     * @param j un objeto de tipo Jugada
+     * @param j       un objeto de tipo Jugada
      */
     @Override
     public void comprobanteSesionJuego(Cliente cliente, Jugada j) {
@@ -279,22 +288,23 @@ public class SistemaCasinoImpl implements SistemaCasino{
 
     /**
      * Funcion que gerera todos los comprobantes de las jugadas asociadas a un cliente por rut
+     *
      * @param nombreUsuario un String conn el nombre de usuario
      */
     @Override
     public void consultarHistorial(String nombreUsuario) {
-        Cliente cliente =  contenedorClientes.buscarClientePorNombre(nombreUsuario);
+        Cliente cliente = contenedorClientes.buscarClientePorNombre(nombreUsuario);
         int balance = 0;
         contenedorJugadas.ordenarJugadas();
 
         for (int i = 0; i < contenedorJugadas.getCantidadActualjugadas(); i++) {
             Jugada j = contenedorJugadas.getJugadas(i);
-            if(j.getRutCliente().equals(cliente.getRut())){
+            if (j.getCliente().getRut().equals(cliente.getRut())) {
                 comprobanteSesionJuego(cliente, j);
-                if(j.getResultado().equals("Ganada")){
-                    balance +=  j.getApuesta();
-                } else{
-                    balance -=  j.getApuesta();
+                if (j.getResultado().equals("Ganada")) {
+                    balance += j.getApuesta();
+                } else {
+                    balance -= j.getApuesta();
                 }
             }
         }
@@ -303,21 +313,23 @@ public class SistemaCasinoImpl implements SistemaCasino{
 
     /**
      * Funcion que permite ver los datos personales del usuario
+     *
      * @param nombreUsuario un String con el nombre de usuario
      */
-    public void verDatosPersonales(String nombreUsuario){
+    public void verDatosPersonales(String nombreUsuario) {
         Cliente c = contenedorClientes.buscarClientePorNombre(nombreUsuario);
         System.out.println("*****************************************************");
         System.out.println("                  DATOS PERSONALES");
-        System.out.println("Nombre completo: "+ c.getNombreCompleto());
-        System.out.println("Rut: "+ c.getRut());
-        System.out.println("Usuario: "+ c.getNombreUsuario());
-        System.out.println("Categoria: "+ c.getCategoriaSocio());
+        System.out.println("Nombre completo: " + c.getNombreCompleto());
+        System.out.println("Rut: " + c.getRut());
+        System.out.println("Usuario: " + c.getNombreUsuario());
+        System.out.println("Categoria: " + c.getCategoriaSocio());
         System.out.println("*****************************************************");
     }
 
     /**
      * Funcion que verifica el acceso al menu para administrar las mesas
+     *
      * @param nombreUsuario un string con el nombre de usuario
      * @return un booleano que determina si pudo o no acceder al menu
      */
@@ -334,30 +346,31 @@ public class SistemaCasinoImpl implements SistemaCasino{
     /**
      * Funcion que permite cambiar el estado de una mesa
      */
-    public void cambiarEstadoMesa(){
+    public void cambiarEstadoMesa() {
         StdOut.println("Ingrese el id de la mesa que desee cambiar de estado");
         int id = StdIn.readInt();
         Mesa m = contenedorMesas.obtenerMesaPorId(id);
         String estado = m.getEstado();
 
-        if(id < 1 || id > getCantidadActualMesas()){
+        if (id < 1 || id > getCantidadActualMesas()) {
             System.out.println("La id ingresada esta fuera del alcance de las listas actuales");
         }
 
-        if(estado.equals("Disponible")){
-            System.out.println("La mesa con el id "+ id + ", se cambio su estado a Cerrada ");
+        if (estado.equals("Disponible")) {
+            System.out.println("La mesa con el id " + id + ", se cambio su estado a Cerrada ");
             m.setEstado("Cerrado");
         }
-        if(estado.equals("Cerrada")){
-            System.out.println("La mesa con el id "+ id + ", se cambio su estado a Disponible");
+        if (estado.equals("Cerrada")) {
+            System.out.println("La mesa con el id " + id + ", se cambio su estado a Disponible");
             m.setEstado("Disponible");
         }
     }
 
     /**
      * Funcion que verifica y permite subir de catregoria del usuario
+     *
      * @param nombreUsuario un String con el nombre de usuario
-     * @param eleccion un String con la opcion que ingreso el usuario
+     * @param eleccion      un String con la opcion que ingreso el usuario
      */
     public void subirCategoria(String nombreUsuario, String eleccion) {
         Cliente cliente = contenedorClientes.buscarClientePorNombre(nombreUsuario);
@@ -366,29 +379,30 @@ public class SistemaCasinoImpl implements SistemaCasino{
 
     /**
      * Funcion que permite cambiar la contraseña del usuario
-     * @param nombreUsuario un String con el nombre de usuario
+     *
+     * @param nombreUsuario     un String con el nombre de usuario
      * @param contraseniaActual un String con la contraseña actual del usuario
-     * @param nuevaContrasenia un String con la nueva contraseña del usuario
+     * @param nuevaContrasenia  un String con la nueva contraseña del usuario
      * @return un booleano que determina si se cambio o no la contraseña
      */
-    public boolean cambiarContrasenia(String nombreUsuario, String contraseniaActual, String nuevaContrasenia){
+    public boolean cambiarContrasenia(String nombreUsuario, String contraseniaActual, String nuevaContrasenia) {
         //Obtenemos el cliente
         Cliente c = contenedorClientes.buscarClientePorNombre(nombreUsuario);
 
         //Comparamos la contraseña ingresada con la actual
-        if(contraseniaActual.equals(c.getContrasenia())){
+        if (contraseniaActual.equals(c.getContrasenia())) {
             //Analisis de la nueva contraseña
-            if(nuevaContrasenia.length() >= 8){
+            if (nuevaContrasenia.length() >= 8) {
 
                 boolean tieneMayus = false;
                 boolean tieneNumero = false;
 
-                for(char texto : nuevaContrasenia.toCharArray()) {
+                for (char texto : nuevaContrasenia.toCharArray()) {
                     if (Character.isUpperCase(texto)) tieneMayus = true;
                     if (Character.isDigit(texto)) tieneNumero = true;
-                    }
+                }
                 //Se establece la nueva contraseña con exito
-                if(tieneMayus && tieneNumero){
+                if (tieneMayus && tieneNumero) {
                     System.out.println("Se cambio la contraseña con exito");
                     c.setContrasenia(nuevaContrasenia);
                     return true;
@@ -402,8 +416,8 @@ public class SistemaCasinoImpl implements SistemaCasino{
     /**
      * Funcion que despliega todas las mesas disponibles
      */
-    public void desplegarMesas(){
-        for(int i = 0; i < this.contenedorMesas.getCantidadActual(); i++){
+    public void desplegarMesas() {
+        for (int i = 0; i < this.contenedorMesas.getCantidadActual(); i++) {
             Mesa m = this.contenedorMesas.obtenerMesa(i);
             System.out.println("**********");
             System.out.println("ID: " + m.getId());
@@ -419,9 +433,9 @@ public class SistemaCasinoImpl implements SistemaCasino{
     /**
      * Funcion que despliega las estadisticas del sistema
      */
-    public void desplegarEstadistica(){
+    public void desplegarEstadistica() {
         // Cantidad de jugadas realizadas dentro del sistema
-        System.out.println("La cantidad de Jugadas realizadas dentro del sistema actualmente es igual a: "+ contenedorJugadas.getCantidadActualjugadas());
+        System.out.println("La cantidad de Jugadas realizadas dentro del sistema actualmente es igual a: " + contenedorJugadas.getCantidadActualjugadas());
         // Mesa mas frecuentada
 
         // Cliente con mayor balance positivo
@@ -430,18 +444,66 @@ public class SistemaCasinoImpl implements SistemaCasino{
         int contadorJugadasGanadas = 0;
         int cantidadActual = contenedorJugadas.getCantidadActualjugadas();
         for (int i = 0; i < contenedorJugadas.getCantidadActualjugadas(); i++) {
-            if(contenedorJugadas.getJugadas(i).getResultado().equals("Ganada")){
+            if (contenedorJugadas.getJugadas(i).getResultado().equals("Ganada")) {
                 contadorJugadasGanadas++;
             }
         }
-        System.out.println("El porcentaje de jugadas ganadas respecto a las totales es de: "+ (contadorJugadasGanadas*100)/cantidadActual +"%");
+        System.out.println("El porcentaje de jugadas ganadas respecto a las totales es de: " + (contadorJugadasGanadas * 100) / cantidadActual + "%");
     }
 
     /**
      * Funcion que carga la informacion del sistema dentro de los archivos txt
      */
-    public void subirDatos(){
+    public void subirDatos() throws IOException {
+        // Escritura de clientes
+        ArchivoSalida archivoSalidaClientes = new ArchivoSalida("clientes.txt");
+        for(Cliente cliente : contenedorClientes.getContenedorClientes()){
+            if (cliente != null){
+                Registro regSal = new Registro(7);
 
+                regSal.agregarCampo(cliente.getRut());
+                regSal.agregarCampo(cliente.getNombre());
+                regSal.agregarCampo(cliente.getApellidoPaterno());
+                regSal.agregarCampo(cliente.getApellidoMaterno());
+                regSal.agregarCampo(cliente.getNombreUsuario());
+                regSal.agregarCampo(cliente.getContrasenia());
+                regSal.agregarCampo(cliente.getCategoriaSocio());
+
+                archivoSalidaClientes.writeRegistro(regSal);
+            }
+        }
+        // Escritura de Mesas
+        ArchivoSalida archivoSalidaMesas = new ArchivoSalida("mesas.txt");
+        for(Mesa mesa : contenedorMesas.getContenedorMesas()){
+            if (mesa != null){
+                Registro regSal = new Registro(6);
+
+                regSal.agregarCampo(mesa.getId());
+                regSal.agregarCampo(mesa.getTipoJuego());
+                regSal.agregarCampo(mesa.getDescripcion());
+                regSal.agregarCampo(mesa.getApuestaMin());
+                regSal.agregarCampo(mesa.getApuestaMax());
+                regSal.agregarCampo(mesa.getEstado());
+
+                archivoSalidaMesas.writeRegistro(regSal);
+            }
+        }
+        // Escritura de Jugadas
+        ArchivoSalida archivoSalidaJugadas = new ArchivoSalida("jugadas.txt");
+        for(Jugada jugada : contenedorJugadas.getContenedorJugadas()) {
+            if (jugada != null) {
+                Registro regSal = new Registro(5);
+
+                regSal.agregarCampo(jugada.getCliente().getRut());
+                regSal.agregarCampo(jugada.getMesa().getId());
+                regSal.agregarCampo(jugada.getFechaJugada());
+                regSal.agregarCampo(jugada.getApuesta());
+                regSal.agregarCampo(jugada.getResultado());
+
+                archivoSalidaJugadas.writeRegistro(regSal);
+            }
+        }
     }
-
 }
+
+// TODO realizar funcion subirCategoria() y Estadisticas 2 y 3.

@@ -36,17 +36,17 @@ public class Cliente {
      * @param rut
      * @param nombre
      * @param apellidoPaterno
-     * @param appelidoMaterno
+     * @param apellidoMaterno
      * @param nombreUsuario
      * @param contrasenia
      * @param categoriaSocio
      */
-    public Cliente(String rut, String nombre, String apellidoPaterno, String appelidoMaterno,
+    public Cliente(String rut, String nombre, String apellidoPaterno, String apellidoMaterno,
                    String nombreUsuario, String contrasenia, String categoriaSocio) {
         this.rut = rut;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
-        this.apellidoMaterno = appelidoMaterno;
+        this.apellidoMaterno = apellidoMaterno;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.categoriaSocio = categoriaSocio;
@@ -105,7 +105,7 @@ public class Cliente {
      * Obtiene el apellido materno del cliente
      * @return un string con el apellido materno del cliente
      */
-    public String getAppelidoMaterno() {
+    public String getApellidoMaterno() {
         return apellidoMaterno;
     }
 

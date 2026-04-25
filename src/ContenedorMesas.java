@@ -68,4 +68,7 @@ public class ContenedorMesas {
         }
         return null;
     }
+    public Mesa[] getContenedorMesas(){
+        return this.mesas;
+    }
 }

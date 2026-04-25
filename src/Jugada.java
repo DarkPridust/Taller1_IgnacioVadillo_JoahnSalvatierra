@@ -7,7 +7,7 @@ public class Jugada {
     /**
      * rut del cliente asociado
      */
-    private String rutCliente;
+    private Cliente cliente;
     /**
      * fecha de hoy
      */
@@ -29,8 +29,8 @@ public class Jugada {
      */
     private Mesa mesa;
 
-    public Jugada(String rutCliente, Mesa mesa, String fechaJugada, int apuesta, String resultado) {
-        this.rutCliente = rutCliente;
+    public Jugada(Cliente cliente, Mesa mesa, String fechaJugada, int apuesta, String resultado) {
+        this.cliente = cliente;
         this.mesa = mesa;
         this.fechaJugada = fechaJugada;
         this.apuesta = apuesta;
@@ -39,19 +39,19 @@ public class Jugada {
     }
 
     /**
-     * obtiene el rut del cliente asociado
-     * @return un String con el rut del cliente asociado
+     * obtiene el cliente asociado
+     * @return un objeto de tipo Cliente
      */
-    public String getRutCliente() {
-        return rutCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
     /**
-     * Establece el rut del cliente asociado
-     * @param rutCliente un String con el rut del cliente asociado
+     * Establece el cliente asociado
+     * @param cliente un objeto de tipo Cliente
      */
-    public void setRutCliente(String rutCliente) {
-        this.rutCliente = rutCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     /**

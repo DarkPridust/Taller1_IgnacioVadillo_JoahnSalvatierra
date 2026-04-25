@@ -1,3 +1,4 @@
 1,Ruleta,Ruleta europea de 37 números,1000,500000,Disponible
 2,Blackjack,Mesa de blackjack clásico,5000,200000,Disponible
 3,Poker,Texas Hold´em 6 jugadores,10000,1000000,Cerrada
+4,Blackjack,Mesa de 5 personas,1000,50000,Disponible

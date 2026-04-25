@@ -16,7 +16,7 @@ public class Main {
     }
 
     //Menu principal del sistema
-    public static void iniciarSistemaCasino(SistemaCasinoImpl sistema){
+    public static void iniciarSistemaCasino(SistemaCasinoImpl sistema) throws IOException {
         int opcion = 0;
         do{
             StdOut.println("==== Casino Royal Aires ====");
@@ -198,10 +198,12 @@ public class Main {
                         int idMesa = sistema.getCantidadActualMesas() + 1;
 
                         sistema.ingresarMesa(idMesa, tipo, descripcion, apuestaMin, apuestaMax, estado);
+                        break;
 
                     case 2:
                         sistema.desplegarMesas();
                         sistema.cambiarEstadoMesa();
+                        break;
 
                     case 3:
                         StdOut.println("Volviendo al menu anterior...\n");
@@ -209,12 +211,12 @@ public class Main {
 
                     default:
                         StdOut.println("La opcion ingresada es invalida");
-
+                        break;
                 }
             } while(opcionM != 3);
         }
     }
 }
 
-// TODO validar 1.1.3.3 por diferente error, 1.1.5.a // Realizar 1.1.3.2 y 1.1.5.b
+
 
