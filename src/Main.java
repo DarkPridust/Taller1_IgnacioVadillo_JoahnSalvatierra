@@ -53,6 +53,7 @@ public class Main {
                     StdOut.println("--------------------");
                     StdOut.println("Cerrando el sistema");
                     StdOut.println("--------------------");
+                    sistema.subirDatos();
                     break;
 
                 default:
@@ -101,11 +102,11 @@ public class Main {
 
                 case 5:
                     // se llama a la funcion para vereificar categoria del cliente y proceder
-                    sistema.administrarMesas(nombreUsuario);
                     menuAdministrarMesas(sistema, nombreUsuario);
                     break;
 
                 case 6:
+                    sistema.desplegarEstadistica();
                     break;
 
                 case 7:
@@ -158,6 +159,7 @@ public class Main {
 
                 case 2:
 
+                    //sistema.subirCategoria();
                     break;
 
                 case 3:
@@ -187,7 +189,7 @@ public class Main {
     }
 
     public static void menuAdministrarMesas(SistemaCasinoImpl sistema, String nombreUsuario){
-        boolean permiso = sistema.administrarMesas(nombreUsuario);
+        boolean permiso = sistema.accesoAdministrarMesas(nombreUsuario);
         if(permiso){
             int opcionM = 0;
             do{
@@ -214,16 +216,21 @@ public class Main {
 
                         int idMesa = sistema.getCantidadActualMesas();
 
-                        sistema.ingresarMesa(idMesa, tipo, descripcion, apuestaMin, apuestaMax, estado);
+                        sistema.ingresarMesa(idMesa + 1, tipo, descripcion, apuestaMin, apuestaMax, estado);
 
                     case 2:
                         sistema.desplegarMesas();
                         StdOut.println("Ingrese el id de la mesa que desee cambiar de estado");
                         int id = StdIn.readInt();
-
+                        sistema.cambiarEstadoMesa(id);
 
                     case 3:
                         StdOut.println("Volviendo al menu anterior...\n");
+                        break;
+
+                    default:
+                        StdOut.println("La opcion ingresada es invalida");
+
                 }
             } while(opcionM != 3);
         }

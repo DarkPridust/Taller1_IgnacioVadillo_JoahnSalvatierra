@@ -80,7 +80,7 @@ class SistemaCasinoImpl{
 
 SistemaCasinoImpl"1"--->"1"ContenedorClientes: posee
 SistemaCasinoImpl"1"--->"1"ContenedorMesas: posee
-SistemaCasinoImpl"1"--->"1"SistemaCasino: implementa
+SistemaCasinoImpl"1"...|>"1"SistemaCasino: implementa
 SistemaCasinoImpl"1"--->"1"ContenedorJugadas: posee
 
 interface SistemaCasino{

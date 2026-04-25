@@ -100,4 +100,18 @@ public class ContenedorJugadas {
     public Jugada getJugadas(int i) {
         return jugadas[i];
     }
+
+    /**
+     * Obtiene las jugadas asosiadas a un solo rut
+     * @param rut un entero con el rut del cliente
+     * @return un objeto de clase Jugada
+     */
+
+    public Jugada getJugadasPorRut(String rut){
+        for(int i = 0; i < this.cantActualJugada; i++){
+            if(jugadas[i].getRutCliente().equals(rut)){
+                return jugadas[i];
+            }
+        } return null;
+    }
 }

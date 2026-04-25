@@ -12,16 +12,22 @@ public interface SistemaCasino {
 
     // Obtener cantidad actual de cada lista
     public int getCantidadActualMesas();
+
     //Operaciones del sistema
     public boolean iniciarSesion(String nombreUsuario, String contrasenia);
     public void desplegarMesaDisponible();
     public void registrarSesionJuego(int id, int monto, String nombreUsuario);
     public void comprobanteSesionJuego(Cliente cliente, Jugada j);
     public void consultarHistorial(String nombreUsuario);
-    public boolean administrarMesas(String nombreUsuario);
+    public boolean accesoAdministrarMesas(String nombreUsuario);
+    public void cambiarEstadoMesa(int id);
     public void verDatosPersonales(String nombreUsuario);
-    public void subirCategoria(String nombreusuario, Jugada j);
+    public void subirCategoria(String nombreusuario, String eleccion);
     public boolean cambiarContrasenia(String nombreUsuario, String contraseniaActual, String nuevaContrasenia);
     public void desplegarMesas();
+    public void desplegarEstadistica();
+
+    // El sistema sube los datos
+    void subirDatos() throws IOException;
 
 }
