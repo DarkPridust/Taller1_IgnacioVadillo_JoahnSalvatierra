@@ -14,13 +14,14 @@ public interface SistemaCasino {
     public int getCantidadActualMesas();
 
     //Operaciones del sistema
+    public void registroNuevoCliente();
     public boolean iniciarSesion(String nombreUsuario, String contrasenia);
     public void desplegarMesaDisponible();
-    public void registrarSesionJuego(int id, int monto, String nombreUsuario);
+    public void registrarSesionJuego(String nombreUsuario, int jugadas);
     public void comprobanteSesionJuego(Cliente cliente, Jugada j);
     public void consultarHistorial(String nombreUsuario);
     public boolean accesoAdministrarMesas(String nombreUsuario);
-    public void cambiarEstadoMesa(int id);
+    public void cambiarEstadoMesa();
     public void verDatosPersonales(String nombreUsuario);
     public void subirCategoria(String nombreusuario, String eleccion);
     public boolean cambiarContrasenia(String nombreUsuario, String contraseniaActual, String nuevaContrasenia);

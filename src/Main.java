@@ -20,9 +20,10 @@ public class Main {
         int opcion = 0;
         do{
             StdOut.println("==== Casino Royal Aires ====");
-            StdOut.println("[1] Iniciar sesion");
+            StdOut.println("[1] Iniciar sesión");
             StdOut.println("[2] Registrar cliente");
             StdOut.println("[3] Salir");
+            StdOut.println("Ingrese una opción: ");
             opcion = StdIn.readInt();
 
             switch(opcion) {
@@ -38,14 +39,14 @@ public class Main {
                     if (inicioExitoso) {
                         menuUsuario(sistema, nombreUsuario);
                     } else {
-                        StdOut.println("Usuario o contraseña erronea");
+                        StdOut.println("Credenciales inválidas. Intente nuevamente.");
                     }
                     StdOut.println("--------------------");
                     break;
 
                 case 2:
                     StdOut.println("--------------------");
-                    registroNuevoCliente(sistema);
+                    sistema.registroNuevoCliente();
                     StdOut.println("--------------------");
                     break;
 
@@ -66,6 +67,7 @@ public class Main {
     //Menu del usuario una vez inicia sesion
     public static void menuUsuario(SistemaCasinoImpl sistema, String nombreUsuario) {
         int opcion1 = 0;
+        int jugadasHoy = 0;
         do{
             StdOut.println("\n----- Bienvenido " + nombreUsuario + "-----");
             StdOut.println("[1] Registrar sesion de juego");
@@ -75,16 +77,13 @@ public class Main {
             StdOut.println("[5] Administrar Mesas");
             StdOut.println("[6] Estadisticas");
             StdOut.println("[7] Cerrar Sesion");
+            StdOut.println("Ingrese una opción: ");
             opcion1 = StdIn.readInt();
 
             switch(opcion1){
                 case 1:
-                    sistema.desplegarMesaDisponible();
-                    StdOut.println("Ingrese el id de la mesa en la que desea apostar: ");
-                    int id = StdIn.readInt();
-                    StdOut.println("Ingrese el monto de su apuesta: ");
-                    int monto = StdIn.readInt();
-                    sistema.registrarSesionJuego(id, monto, nombreUsuario);
+                    sistema.registrarSesionJuego(nombreUsuario, jugadasHoy);
+                    jugadasHoy++;
                     break;
 
                 case 2:
@@ -92,7 +91,7 @@ public class Main {
                     break;
 
                 case 3:
-                    gestionarCuenta(sistema, nombreUsuario);
+                    menuGestionarCuenta(sistema, nombreUsuario);
                     break;
 
                 case 4:
@@ -120,27 +119,7 @@ public class Main {
         }while(opcion1 != 7);
     }
 
-    public static void registroNuevoCliente(SistemaCasinoImpl sistema){
-        StdOut.println("------- Registrar Cliente --------");
-        StdOut.println("Ingrese el nombre del nuevo cliente.");
-        String nombre = StdIn.readString();
-        StdOut.println("Ingrese el apellido paterno del nuevo cliente.");
-        String apellidoPaterno = StdIn.readString();
-        StdOut.println("Ingrese el apellido materno del nuevo cliente.");
-        String apellidoMaterno = StdIn.readString();
-        StdOut.println("Ingrese el RUT del nuevo cliente (En formato: 12.345.678-9).");
-        String rutCliente = StdIn.readString();
-        StdOut.println("Ingrese el nombre de usuario del nuevo cliente.");
-        String nombreUsuario = StdIn.readString();
-
-        String rutSinVerificador = rutCliente.replaceAll("[^0-9]", "");
-        String contrasenia = rutSinVerificador.substring(0, rutSinVerificador.length()-1);
-
-        sistema.ingresarCliente(rutCliente,nombre,apellidoPaterno,apellidoMaterno,nombreUsuario,contrasenia,"Normal");
-        System.out.print("El cliente ha sido registrado exitosamente.\n");
-    }
-
-    public static void gestionarCuenta(SistemaCasinoImpl sistema, String nombreUsuario){
+    public static void menuGestionarCuenta(SistemaCasinoImpl sistema, String nombreUsuario){
         int opcionG = 0;
         do{
             StdOut.println("\n===== Gestion de cuenta =====");
@@ -148,6 +127,7 @@ public class Main {
             StdOut.println("[2] Subir de categoria");
             StdOut.println("[3] Cambiar contraseña");
             StdOut.println("[4] Volver");
+            StdOut.println("Ingrese una opción: ");
             opcionG = StdIn.readInt();
 
             switch(opcionG){
@@ -164,16 +144,16 @@ public class Main {
 
                 case 3:
                     //Solicita la contraseña actual
-                    StdOut.println("Ingrese la contrase actual: ");
+                    StdOut.println("Ingrese la contraseña actual: ");
                     String contraseniaActual = StdIn.readString();
 
                     //Solicita la nueva contraseña
                     StdOut.println("Requisitos: La nueva contraseña debe de ser diferente a la anterrior" +
-                            "contener al menos 1 mayuscula, contener al menos un número y debe de superar o ser igual a 8 caracteres");
+                            "contener al menos 1 mayúscula, contener al menos un número y debe de superar o ser igual a 8 caracteres");
                     StdOut.println("Ingrese la nueva contraseña");
                     String nuevaContrasenia = StdIn.readString();
 
-                    //Llama a la funcion nuevaContrania para validar lo ingresado
+                    //Llama a la función nuevaContrania para validar lo ingresado
                     sistema.cambiarContrasenia(nombreUsuario, contraseniaActual, nuevaContrasenia);
                     break;
 
@@ -182,7 +162,7 @@ public class Main {
                     break;
 
                 default:
-                    StdOut.println("La opcion ingresada es invalida");
+                    StdOut.println("La opción ingresada es invalida");
                     break;
             }
         } while(opcionG != 4);
@@ -193,10 +173,11 @@ public class Main {
         if(permiso){
             int opcionM = 0;
             do{
-                StdOut.println("===== Administracion de mesas =====");
+                StdOut.println("===== Administración de mesas =====");
                 StdOut.println("[1] Agregar nueva Mesa");
                 StdOut.println("[2] Cambiar estado de una mesa");
                 StdOut.println("[3] Volver al menu anterior");
+                StdOut.println("Ingrese una opción: ");
                 opcionM = StdIn.readInt();
 
                 switch(opcionM){
@@ -205,7 +186,7 @@ public class Main {
                         StdOut.println("------- Crear Mesa --------");
                         StdOut.println("Ingrese el tipo de juego de la mesa: ");
                         String tipo = StdIn.readString();
-                        StdOut.println("Ingrese la descripcion de la mesa");
+                        StdOut.println("Ingrese la descripción de la mesa");
                         String descripcion = StdIn.readString();
                         StdOut.println("Ingresa la apuesta minima de la mesa");
                         int apuestaMin =StdIn.readInt();
@@ -214,15 +195,13 @@ public class Main {
                         StdOut.println("Ingrese el estado de la mesa (Disponible/Cerrada)");
                         String estado = StdIn.readString();
 
-                        int idMesa = sistema.getCantidadActualMesas();
+                        int idMesa = sistema.getCantidadActualMesas() + 1;
 
-                        sistema.ingresarMesa(idMesa + 1, tipo, descripcion, apuestaMin, apuestaMax, estado);
+                        sistema.ingresarMesa(idMesa, tipo, descripcion, apuestaMin, apuestaMax, estado);
 
                     case 2:
                         sistema.desplegarMesas();
-                        StdOut.println("Ingrese el id de la mesa que desee cambiar de estado");
-                        int id = StdIn.readInt();
-                        sistema.cambiarEstadoMesa(id);
+                        sistema.cambiarEstadoMesa();
 
                     case 3:
                         StdOut.println("Volviendo al menu anterior...\n");

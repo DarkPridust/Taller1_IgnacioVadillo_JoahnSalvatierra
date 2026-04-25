@@ -98,12 +98,47 @@ public class ContenedorClientes {
 
     public boolean puedeJugar(String nivelSocio, int jugadasHoy){
         if(nivelSocio.equals("Normal") || nivelSocio.equals("Plata")){
-            return jugadasHoy < 1;
+            if(jugadasHoy == 1){
+                return false;
+            } else {
+                return true;
+            }
         }else if(nivelSocio.equals("Oro")){
-            return jugadasHoy < 2;
+            if (jugadasHoy == 2){
+                return false;
+            } else {
+                return true;
+            }
         }else if(nivelSocio.equals("Platino")){
             return true;
+        }else{
+            return false;
         }
-        return false;
+    }
+
+    public boolean puedeSubirCategoria(String nombreUsuario,int sesionesGanadas) {
+        switch (buscarClientePorNombre(nombreUsuario).getCategoriaSocio()) {
+            case "Normal":
+                return sesionesGanadas >= 5;
+            case "Plata":
+                return sesionesGanadas >= 10;
+            case "Oro":
+                return sesionesGanadas >= 20;
+            default:
+                return false;
+        }
+    }
+
+    public String categoriaSiguiente(String nombreUsuario) {
+        switch (buscarClientePorNombre(nombreUsuario).getCategoriaSocio()) {
+            case "Normal":
+                return "Plata";
+            case "Plata":
+                return "Oro";
+            case "Oro":
+                return "Platino";
+            default:
+                return "Platino";
+        }
     }
 }
