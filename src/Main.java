@@ -5,6 +5,7 @@ import ucn.StdIn;
 import ucn.StdOut;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -24,42 +25,46 @@ public class Main {
             StdOut.println("[2] Registrar cliente");
             StdOut.println("[3] Salir");
             StdOut.println("Ingrese una opción: ");
-            opcion = StdIn.readInt();
+            try{
+                opcion = StdIn.readInt();
+                switch(opcion) {
+                    case 1:
+                        StdOut.println("------- Inicio de Sesion --------");
 
-            switch(opcion) {
-                case 1:
-                    StdOut.println("------- Inicio de Sesion --------");
+                        StdOut.println("Ingrese el nombre de usuario con el que desea iniciar sesion");
+                        String nombreUsuario = StdIn.readString();
 
-                    StdOut.println("Ingrese el nombre de usuario con el que desea iniciar sesion");
-                    String nombreUsuario = StdIn.readString();
+                        StdOut.println("Ingrese su contraseña");
+                        String contrasenia = StdIn.readString();
+                        boolean inicioExitoso = sistema.iniciarSesion(nombreUsuario, contrasenia);
+                        if (inicioExitoso) {
+                            menuUsuario(sistema, nombreUsuario);
+                        } else {
+                            StdOut.println("Credenciales inválidas. Intente nuevamente.");
+                        }
+                        StdOut.println("--------------------");
+                        break;
 
-                    StdOut.println("Ingrese su contraseña");
-                    String contrasenia = StdIn.readString();
-                    boolean inicioExitoso = sistema.iniciarSesion(nombreUsuario, contrasenia);
-                    if (inicioExitoso) {
-                        menuUsuario(sistema, nombreUsuario);
-                    } else {
-                        StdOut.println("Credenciales inválidas. Intente nuevamente.");
-                    }
-                    StdOut.println("--------------------");
-                    break;
+                    case 2:
+                        StdOut.println("--------------------");
+                        sistema.registroNuevoCliente();
+                        StdOut.println("--------------------");
+                        break;
 
-                case 2:
-                    StdOut.println("--------------------");
-                    sistema.registroNuevoCliente();
-                    StdOut.println("--------------------");
-                    break;
+                    case 3:
+                        StdOut.println("--------------------");
+                        StdOut.println("Cerrando el sistema");
+                        StdOut.println("--------------------");
+                        sistema.subirDatos();
+                        break;
 
-                case 3:
-                    StdOut.println("--------------------");
-                    StdOut.println("Cerrando el sistema");
-                    StdOut.println("--------------------");
-                    sistema.subirDatos();
-                    break;
-
-                default:
-                    StdOut.println("La opcion ingresada es incorrecta");
-                    break;
+                    default:
+                        StdOut.println("La opcion ingresada es incorrecta");
+                        break;
+                }
+            } catch(InputMismatchException e){
+                System.out.println("Debe de ingresar un digito entero.");
+                break;
             }
         }while(opcion != 3);
     }
@@ -138,8 +143,7 @@ public class Main {
                     break;
 
                 case 2:
-
-                    //sistema.subirCategoria();
+                    sistema.subirCategoria(nombreUsuario);
                     break;
 
                 case 3:
@@ -147,14 +151,10 @@ public class Main {
                     StdOut.println("Ingrese la contraseña actual: ");
                     String contraseniaActual = StdIn.readString();
 
-                    //Solicita la nueva contraseña
-                    StdOut.println("Requisitos: La nueva contraseña debe de ser diferente a la anterrior" +
-                            "contener al menos 1 mayúscula, contener al menos un número y debe de superar o ser igual a 8 caracteres");
-                    StdOut.println("Ingrese la nueva contraseña");
-                    String nuevaContrasenia = StdIn.readString();
-
-                    //Llama a la función nuevaContrania para validar lo ingresado
-                    sistema.cambiarContrasenia(nombreUsuario, contraseniaActual, nuevaContrasenia);
+                    //Llama a la función nuevaContrania para realizar el cambio de la contraseña.
+                    do{
+                        sistema.cambiarContrasenia(nombreUsuario, contraseniaActual);
+                    }while (!sistema.cambiarContrasenia(nombreUsuario, contraseniaActual));
                     break;
 
                 case 4:

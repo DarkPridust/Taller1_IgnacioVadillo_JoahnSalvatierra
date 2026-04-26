@@ -116,8 +116,8 @@ public class ContenedorClientes {
         }
     }
 
-    public boolean puedeSubirCategoria(String nombreUsuario,int sesionesGanadas) {
-        switch (buscarClientePorNombre(nombreUsuario).getCategoriaSocio()) {
+    public boolean puedeSubirCategoria(String categoriaActual,int sesionesGanadas) {
+        switch (categoriaActual) {
             case "Normal":
                 return sesionesGanadas >= 5;
             case "Plata":
@@ -129,8 +129,8 @@ public class ContenedorClientes {
         }
     }
 
-    public String categoriaSiguiente(String nombreUsuario) {
-        switch (buscarClientePorNombre(nombreUsuario).getCategoriaSocio()) {
+    public String categoriaSiguiente(String categoriaActual) {
+        switch (categoriaActual) {
             case "Normal":
                 return "Plata";
             case "Plata":

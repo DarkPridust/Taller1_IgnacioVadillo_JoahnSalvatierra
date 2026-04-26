@@ -29,6 +29,8 @@ public class Jugada {
      */
     private Mesa mesa;
 
+    private String categoriaEnJugada;
+
     public Jugada(Cliente cliente, Mesa mesa, String fechaJugada, int apuesta, String resultado) {
         this.cliente = cliente;
         this.mesa = mesa;
@@ -36,6 +38,7 @@ public class Jugada {
         this.apuesta = apuesta;
         this.resultado = resultado;
         this.fechaHoy = LocalDateTime.now();
+        this.categoriaEnJugada = cliente.getCategoriaSocio();
     }
 
     /**
@@ -120,5 +123,7 @@ public class Jugada {
     public void setFechaHoy(LocalDateTime fechaHoy) {
         this.fechaHoy = fechaHoy;
     }
+
+    public String getCategoriaEnJugada() {return categoriaEnJugada;}
 
 }

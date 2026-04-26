@@ -1,4 +1,4 @@
 12.345.678-9,Carlos,Mendoza,Rios,cmendoza,CasinoR10,Platino
 9.876.543-2,Ana,Torres,Vega,anatorres,Vegas2024,Plata
 11.111.111-1,Luis,Perez,Mora,lperez,Royal123,Oro
-17.486.376-7,Alex,Gutierrez,Rivera,AGuti,17486376,Normal
+17.486.376-7,Alex,Gutierrez,Rivera,AGuti,17486376,Platino

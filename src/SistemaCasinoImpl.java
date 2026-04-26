@@ -54,8 +54,12 @@ public class SistemaCasinoImpl implements SistemaCasino {
             String nombreUsuario = regEnt.getString();
             String contrasenia = regEnt.getString();
             String categoria = regEnt.getString();
-
-            ingresarCliente(rut, nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, categoria);
+            try{
+                ingresarCliente(rut, nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, categoria);
+            } catch (Exception e) {
+                System.out.println("Error: Los clientes no se han registrado correctamente.");
+                break;
+            }
         }
 
         // Lectura de mesas.txt
@@ -71,7 +75,12 @@ public class SistemaCasinoImpl implements SistemaCasino {
             int montoMax = regEnt.getInt();
             String estado = regEnt.getString();
 
-            ingresarMesa(id, tipoJuego, descripcion, montoMin, montoMax, estado);
+            try{
+                ingresarMesa(id, tipoJuego, descripcion, montoMin, montoMax, estado);
+            } catch (Exception e) {
+                System.out.println("Error: Las mesas no se han registrado correctamente.");
+                break;
+            }
         }
         // Lectura de jugadas.txt
         ArchivoEntrada archivoEntradaJugadas = new ArchivoEntrada("jugadas.txt");
@@ -87,7 +96,13 @@ public class SistemaCasinoImpl implements SistemaCasino {
 
             Mesa mesa = contenedorMesas.obtenerMesaPorId(idMesa);
             Cliente cliente = contenedorClientes.buscarClientePorRut(rutCliente);
-            ingresarJugada(cliente, mesa, fecha, monto, resultado);
+
+            try{
+                ingresarJugada(cliente, mesa, fecha, monto, resultado);
+            } catch (Exception e) {
+                System.out.println("Error: Las jugadas no se han registrado correctamente.");
+                break;
+            }
         }
     }
 
@@ -370,11 +385,33 @@ public class SistemaCasinoImpl implements SistemaCasino {
      * Funcion que verifica y permite subir de catregoria del usuario
      *
      * @param nombreUsuario un String con el nombre de usuario
-     * @param eleccion      un String con la opcion que ingreso el usuario
      */
-    public void subirCategoria(String nombreUsuario, String eleccion) {
+    public void subirCategoria(String nombreUsuario) {
         Cliente cliente = contenedorClientes.buscarClientePorNombre(nombreUsuario);
         String rut = cliente.getRut();
+        String categoriaActual = cliente.getCategoriaSocio();
+        int partidasGanadas = contenedorJugadas.contarPartidasGanadas(rut, categoriaActual);
+
+        System.out.println("=== Subir de Categoría ===");
+        System.out.println("Categoría actual : " + categoriaActual);
+        System.out.println("Partidas ganadas : " + partidasGanadas);
+        System.out.println("¿Deseas subir de categoría? (Si/No)");
+        String respuesta = StdIn.readString();
+        if (respuesta.equalsIgnoreCase("si")) {
+            if (contenedorClientes.puedeSubirCategoria(categoriaActual, partidasGanadas)) {
+                String siguienteCategoria = contenedorClientes.categoriaSiguiente(categoriaActual);
+                cliente.setCategoriaSocio(siguienteCategoria);
+                System.out.println("Su categoría ha sido ascendida a "+ siguienteCategoria + " exitosamente.");
+            } else {
+                if (categoriaActual.equals("Platino")) {
+                    System.out.println("Ya tienes la categoría máxima.");
+                } else {
+                    System.out.println("Aún no cumples los requisitos para subir de categoría.");
+                }
+            }
+        } else {
+            System.out.println("Mantuviste tu categoría actual: " +  categoriaActual);
+        }
     }
 
     /**
@@ -382,15 +419,15 @@ public class SistemaCasinoImpl implements SistemaCasino {
      *
      * @param nombreUsuario     un String con el nombre de usuario
      * @param contraseniaActual un String con la contraseña actual del usuario
-     * @param nuevaContrasenia  un String con la nueva contraseña del usuario
      * @return un booleano que determina si se cambio o no la contraseña
      */
-    public boolean cambiarContrasenia(String nombreUsuario, String contraseniaActual, String nuevaContrasenia) {
+    public boolean cambiarContrasenia(String nombreUsuario, String contraseniaActual) {
         //Obtenemos el cliente
         Cliente c = contenedorClientes.buscarClientePorNombre(nombreUsuario);
-
+        StdOut.println("Ingrese la nueva contraseña");
+        String nuevaContrasenia = StdIn.readString();
         //Comparamos la contraseña ingresada con la actual
-        if (contraseniaActual.equals(c.getContrasenia())) {
+        if (!nuevaContrasenia.equals(c.getContrasenia())) {
             //Analisis de la nueva contraseña
             if (nuevaContrasenia.length() >= 8) {
 
@@ -406,10 +443,17 @@ public class SistemaCasinoImpl implements SistemaCasino {
                     System.out.println("Se cambio la contraseña con exito");
                     c.setContrasenia(nuevaContrasenia);
                     return true;
+                } else if (!tieneMayus) {
+                    System.out.println("La contraseña debe de contener al menos una letra mayúscula. Intentelo nuevamente");
+                }else{
+                    System.out.println("La contraseña debe de contener al menos un numero. Intentelo nuevamente.");
+                    return false;
                 }
             }
+            System.out.println("La contraseña debe tener al menos 8 caracteres. Intentelo nuevamente.");
+            return false;
         }
-        System.out.println("Error, alguna de las condiciones no se cumplieron");
+        System.out.println("La contraseña debe ser distinta a la contraseña actual. Intentelo nuevamente");
         return false;
     }
 
@@ -503,6 +547,9 @@ public class SistemaCasinoImpl implements SistemaCasino {
                 archivoSalidaJugadas.writeRegistro(regSal);
             }
         }
+        archivoSalidaMesas.close();
+        archivoSalidaJugadas.close();
+        archivoSalidaClientes.close();
     }
 }
 

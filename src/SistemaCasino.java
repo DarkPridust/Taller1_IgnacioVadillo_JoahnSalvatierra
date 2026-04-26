@@ -23,8 +23,8 @@ public interface SistemaCasino {
     public boolean accesoAdministrarMesas(String nombreUsuario);
     public void cambiarEstadoMesa();
     public void verDatosPersonales(String nombreUsuario);
-    public void subirCategoria(String nombreusuario, String eleccion);
-    public boolean cambiarContrasenia(String nombreUsuario, String contraseniaActual, String nuevaContrasenia);
+    public void subirCategoria(String nombreusuario);
+    public boolean cambiarContrasenia(String nombreUsuario, String contraseniaActual);
     public void desplegarMesas();
     public void desplegarEstadistica();
 

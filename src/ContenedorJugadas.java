@@ -101,4 +101,16 @@ public class ContenedorJugadas {
     public Jugada[] getContenedorJugadas(){
         return this.jugadas;
     }
+
+    public int contarPartidasGanadas(String rutCliente, String categoriaActual){
+        int contador = 0;
+        for (int i = 0; i < this.cantActualJugada; i++) {
+            Jugada j = jugadas[i];
+            if(j.getCliente().getRut().equals(rutCliente) && j.getResultado().equals("Ganada")
+                    && j.getCategoriaEnJugada().equals(categoriaActual)){
+                contador++;
+            }
+        }
+        return contador;
+    }
 }
