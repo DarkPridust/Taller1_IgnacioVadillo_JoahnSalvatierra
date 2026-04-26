@@ -3,27 +3,27 @@
  */
 public class Cliente {
     /**
-     * rut del cliente
+     * Rut del cliente
      */
     private String rut;
     /**
-     * nombre del cliente
+     * Nombre del cliente
      */
     private String nombre;
     /**
-     * apellido paterno del cliente
+     * Apellido paterno del cliente
      */
     private String apellidoPaterno;
     /**
-     * apellido materno del cliente
+     * Apellido materno del cliente
      */
     private String apellidoMaterno;
     /**
-     * nombre de usuario del cliente
+     * Nombre de usuario del cliente
      */
     private String nombreUsuario;
     /**
-     * contrasenia del cliente
+     * Contraseña del cliente
      */
     private String contrasenia;
     /**
@@ -33,13 +33,13 @@ public class Cliente {
 
     /**
      * Constructor de la clase Cliente
-     * @param rut
-     * @param nombre
-     * @param apellidoPaterno
-     * @param apellidoMaterno
-     * @param nombreUsuario
-     * @param contrasenia
-     * @param categoriaSocio
+     * @param rut es el rut del cliente
+     * @param nombre es el nombre del cliente
+     * @param apellidoPaterno es el apellido paterno del cliente
+     * @param apellidoMaterno es el apellido materno del cliente
+     * @param nombreUsuario es el nombre de usuario del cliente
+     * @param contrasenia es la contraseña del cliente
+     * @param categoriaSocio es la categoría social en la que se encuentra el cliente
      */
     public Cliente(String rut, String nombre, String apellidoPaterno, String apellidoMaterno,
                    String nombreUsuario, String contrasenia, String categoriaSocio) {
@@ -61,15 +61,6 @@ public class Cliente {
     }
 
     /**
-     * Establece el rut del cliente
-     * <p>El rut debe de ser unico por cliente (no se puede repetir)</p>
-     * @param rut un String con el rut del cliente
-     */
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
-
-    /**
      * Obtiene el nombre del cliente
      * @return un string con el nombre del cliente
      */
@@ -78,29 +69,13 @@ public class Cliente {
     }
 
     /**
-     * Establece el nombre del cliente
-     * <p>Se admite cualquier extension de nombre</p>
-     * @param nombre un String con el nombre del cliente
-     */
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-    /**
      * Obtiene el apellido paterno del cliente
      * @return un string con el apellido paterno del cliente
      */
     public String getApellidoPaterno() {
         return apellidoPaterno;
     }
-    /**
-     * Establece el apellido paterno del cliente
-     * *<p>Se admite cualquier extension de apellido</p>
-     * @param apellidoPaterno un String con el apellido paterno del cliente
-     */
-    public void setApellidoPaterno(String apellidoPaterno) {
-        this.apellidoPaterno = apellidoPaterno;
-    }
+
     /**
      * Obtiene el apellido materno del cliente
      * @return un string con el apellido materno del cliente
@@ -110,14 +85,6 @@ public class Cliente {
     }
 
     /**
-     * Establece el apellido materno del cliente
-     * *<p>Se admite cualquier extension de apellido</p>
-     * @param apellidoMaterno un String con el apellido materno del cliente
-     */
-    public void setAppelidoMaterno(String apellidoMaterno) {
-        this.apellidoMaterno = apellidoMaterno;
-    }
-    /**
      * Obtiene el nombre de usuario del cliente
      * @return un string con el nombre de usuario del cliente
      */
@@ -125,15 +92,6 @@ public class Cliente {
         return nombreUsuario;
     }
 
-    // El limite de caracteres es para que un cliente no pueda tener un nombre con una cantidad de caracteres absurda.
-    /**
-     * Establece el nombre de usuario de cliente
-     * *<p>Se admite un nombre de usuario con un limite de 12 caracteres </p>
-     * @param nombreUsuario un String con el nombre del usuario
-     */
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
     /**
      * Obtiene la contraseña del cliente
      * @return un string con la contraseña del cliente
@@ -141,15 +99,17 @@ public class Cliente {
     public String getContrasenia() {
         return contrasenia;
     }
+
     /**
      * Establece la contraseña del cliente.
-     * * <p> La contraseña inicial debe ser el rut sin puntos ni guion. Para cambiar la contraseña esta debe contener: almenos 8 caracteres, almenos una letra mayuscula,
-     * contener al menos un digito numerico. Ademas la nueva contraseña debe de ser distinta a la anterior.</p>
+     * * <p> La contraseña inicial debe ser el rut sin puntos ni guion. Para cambiar la contraseña esta debe contener: al menos 8 caracteres, al menos una letra mayúscula,
+     * contener al menos un dígito numerico. Además, la nueva contraseña debe de ser distinta a la anterior.</p>
      * @param contrasenia un String con la contraseña del cliente
      */
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
+
     /**
      * Obtiene la categoria del cliente
      * @return un string con la categoria del cliente
@@ -160,13 +120,17 @@ public class Cliente {
 
     /**
      * Establece la categoria del cliente.
-     * * <p> los cliente empiezan con la categoria normal. Los valores permitidos son: Normal, Plata, Oro o Platino.
-     * Cualquier otro valor puede causar comportamientos inesperados en el calculo de beneficios.</p>
-     * @param categoriaSocio un String con la categoria del cliente ("Vacio (Cliente normal)", "Plata","Oro" o "Platino").
+     * * <p> Los clientes empiezan con la categoria normal. Los valores permitidos son: Normal, Plata, Oro o Platino.
+     * Cualquier otro valor puede causar comportamientos inesperados en el cálculo de beneficios.</p>
+     * @param categoriaSocio un String con la categoria del cliente ("Vacío (Cliente normal)", "Plata", "Oro" o "Platino").
      */
     public void setCategoriaSocio(String categoriaSocio) {
         this.categoriaSocio = categoriaSocio;
     }
 
+    /**
+     * Obtiene el nombre completo del usuario.
+     * @return
+     */
     public String getNombreCompleto() {return nombre +" "+apellidoPaterno +" "+apellidoMaterno;}
 }

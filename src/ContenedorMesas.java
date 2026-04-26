@@ -5,7 +5,7 @@ public class ContenedorMesas {
     /**
      * Contenedor de las Mesas
      */
-    private Mesa mesas[];
+    private Mesa[] mesas;
     /**
      * Cantidad maxima de Mesas
      */
@@ -16,8 +16,8 @@ public class ContenedorMesas {
     private int cantActualMesa;
 
     /**
-     * constructor de la clase ContenedorMesas
-     * @param cantMax
+     * Constructor de la clase ContenedorMesas
+     * @param cantMax Es la cantidad maxima del contenedor
      */
     public ContenedorMesas(int cantMax){
         this.cantMaxMesa = cantMax;
@@ -26,11 +26,10 @@ public class ContenedorMesas {
     }
 
     /**
-     * Agreaga una Mesa al contenedor de mesas
+     * Agrega una Mesa al contenedor de mesas
      * @param mesa un objeto de clase Mesa
-     * @return un booleano con la confirmacion del agregado
+     * @return un booleano con la confirmación del agregado
      */
-
     public boolean agregarMesa(Mesa mesa){
         if(this.cantActualMesa >= this.cantMaxMesa){
             return false;
@@ -41,11 +40,10 @@ public class ContenedorMesas {
     }
 
     /**
-     * Obtiene una Mesa por la posicion
-     * @param posicion un entero con la posicion
-     * @return la Mesa en la posicion
+     * Obtiene una Mesa por la posición
+     * @param posicion un entero con la posición
+     * @return la Mesa en la posición
      */
-
     public Mesa obtenerMesa(int posicion){
         if(posicion < 0 || posicion >= this.cantActualMesa){
             return null;
@@ -54,12 +52,18 @@ public class ContenedorMesas {
     }
 
     /**
-     * obtiene la cantidad actual de mesas en el ContenedorMesas
+     * Obtiene la cantidad actual de mesas en el ContenedorMesas
      * @return un entero con la cantidad actual de mesas en en contenedor
      */
-    public int getCantidadActual(){ return this.cantActualMesa;
+    public int getCantidadActual(){
+        return this.cantActualMesa;
     }
 
+    /**
+     * Obtiene la mesa según su id
+     * @param id el ID de la mesa
+     * @return un objeto mesa
+     */
     public Mesa obtenerMesaPorId(int id){
         for(int i = 0; i < this.cantActualMesa; i++){
             if (mesas[i].getId() == id){
@@ -68,6 +72,11 @@ public class ContenedorMesas {
         }
         return null;
     }
+
+    /**
+     * Obtiene las mesas de su contenedor
+     * @return un objeto Mesa
+     */
     public Mesa[] getContenedorMesas(){
         return this.mesas;
     }

@@ -10,13 +10,17 @@ import java.util.InputMismatchException;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-    // inicio del sistema
+    // Inicio del sistema
     SistemaCasinoImpl sistema = new SistemaCasinoImpl(100,10000,1000);
     sistema.cargaDeDatos();
     iniciarSistemaCasino(sistema);
     }
 
-    //Menu principal del sistema
+    /**
+     * Este metodo inicia el programa principal
+     * @param sistema Es el sistema
+     * @throws IOException
+     */
     public static void iniciarSistemaCasino(SistemaCasinoImpl sistema) throws IOException {
         int opcion = 0;
         do{
@@ -29,12 +33,12 @@ public class Main {
                 opcion = StdIn.readInt();
                 switch(opcion) {
                     case 1:
-                        StdOut.println("------- Inicio de Sesion --------");
+                        StdOut.println("------- Inicio de Sesión --------");
 
-                        StdOut.println("Ingrese el nombre de usuario con el que desea iniciar sesion");
+                        StdOut.println("Ingrese el nombre de usuario con el que desea iniciar sesión: ");
                         String nombreUsuario = StdIn.readString();
 
-                        StdOut.println("Ingrese su contraseña");
+                        StdOut.println("Ingrese su contraseña: ");
                         String contrasenia = StdIn.readString();
                         boolean inicioExitoso = sistema.iniciarSesion(nombreUsuario, contrasenia);
                         if (inicioExitoso) {
@@ -59,7 +63,7 @@ public class Main {
                         break;
 
                     default:
-                        StdOut.println("La opcion ingresada es incorrecta");
+                        StdOut.println("La opción ingresada es incorrecta");
                         break;
                 }
             } catch(InputMismatchException e){
@@ -69,19 +73,23 @@ public class Main {
         }while(opcion != 3);
     }
 
-    //Menu del usuario una vez inicia sesion
+    /**
+     * Este metodo inicia el menú del usuario
+     * @param sistema Es el sistema
+     * @param nombreUsuario Es el usuario iniciado sesión en el sistema
+     */
     public static void menuUsuario(SistemaCasinoImpl sistema, String nombreUsuario) {
         int opcion1 = 0;
         int jugadasHoy = 0;
         do{
             StdOut.println("\n----- Bienvenido " + nombreUsuario + "-----");
-            StdOut.println("[1] Registrar sesion de juego");
+            StdOut.println("[1] Registrar sesión de juego");
             StdOut.println("[2] Consultar historial");
             StdOut.println("[3] Gestionar cuenta");
             StdOut.println("[4] Ver mesas disponibles");
             StdOut.println("[5] Administrar Mesas");
-            StdOut.println("[6] Estadisticas");
-            StdOut.println("[7] Cerrar Sesion");
+            StdOut.println("[6] Estadísticas");
+            StdOut.println("[7] Cerrar Sesión");
             StdOut.println("Ingrese una opción: ");
             opcion1 = StdIn.readInt();
 
@@ -100,12 +108,10 @@ public class Main {
                     break;
 
                 case 4:
-                    // Se despliegan todas las mesas disponibles
                     sistema.desplegarMesaDisponible();
                     break;
 
                 case 5:
-                    // se llama a la funcion para vereificar categoria del cliente y proceder
                     menuAdministrarMesas(sistema, nombreUsuario);
                     break;
 
@@ -124,6 +130,11 @@ public class Main {
         }while(opcion1 != 7);
     }
 
+    /**
+     * Este metodo inicia el menú para gestionar la cuenta
+     * @param sistema Es el sistema
+     * @param nombreUsuario Es el usuario iniciado sesión en el sistema
+     */
     public static void menuGestionarCuenta(SistemaCasinoImpl sistema, String nombreUsuario){
         int opcionG = 0;
         do{
@@ -138,7 +149,6 @@ public class Main {
             switch(opcionG){
 
                 case 1:
-                    //Imprime los datos personales del usuario
                     sistema.verDatosPersonales(nombreUsuario);
                     break;
 
@@ -147,11 +157,8 @@ public class Main {
                     break;
 
                 case 3:
-                    //Solicita la contraseña actual
                     StdOut.println("Ingrese la contraseña actual: ");
                     String contraseniaActual = StdIn.readString();
-
-                    //Llama a la función nuevaContrania para realizar el cambio de la contraseña.
                     do{
                         sistema.cambiarContrasenia(nombreUsuario, contraseniaActual);
                     }while (!sistema.cambiarContrasenia(nombreUsuario, contraseniaActual));
@@ -168,6 +175,11 @@ public class Main {
         } while(opcionG != 4);
     }
 
+    /**
+     * Este metodo inicia el menú de administrar las mesas
+     * @param sistema Es el sistema
+     * @param nombreUsuario Es el usuario iniciado sesión en el sistema
+     */
     public static void menuAdministrarMesas(SistemaCasinoImpl sistema, String nombreUsuario){
         boolean permiso = sistema.accesoAdministrarMesas(nombreUsuario);
         if(permiso){
@@ -196,7 +208,7 @@ public class Main {
                         break;
 
                     default:
-                        StdOut.println("La opcion ingresada es invalida");
+                        StdOut.println("La opción ingresada es invalida");
                         break;
                 }
             } while(opcionM != 3);

@@ -5,7 +5,7 @@ public class ContenedorClientes {
     /**
      *Contenedor de los clientes
      */
-    private Cliente clientes[];
+    private Cliente[] clientes;
     /**
      *La cantidad maxima de clientes
      */
@@ -17,7 +17,7 @@ public class ContenedorClientes {
 
     /**
      * Constructor de la clase ContenedorClientes
-     * @param cantMaxClientes
+     * @param cantMaxClientes Es la cantidad maxima del contenedor
      */
     public ContenedorClientes(int cantMaxClientes){
         this.cantMaxClientes = cantMaxClientes;
@@ -26,21 +26,21 @@ public class ContenedorClientes {
         }
 
     /**
-     * agrega un cliente al ContenedorCliente
-     * @param cliente un objeto de clae Cliente
-     * @return un booleano con la confirmacion de agregado
+     * Agrega un cliente al ContenedorCliente
+     * @param cliente un objeto de clase Cliente
+     * @return un booleano con la confirmación de agregado
      */
     public boolean agregarCliente(Cliente cliente){
         if(this.cantActualCliente >= cantMaxClientes){
-            System.err.println("No se puede agregar más empleados. Capacidad maxima alcanzada.");
+            System.out.println("No se puede agregar más empleados. Capacidad maxima alcanzada.");
             return false;
         }
         if (this.buscarClientePorRut(cliente.getRut()) != null){
-            System.err.println("Ya existe un cliente con el RUT: " + cliente.getRut());
+            System.out.println("Ya existe un cliente con el RUT: " + cliente.getRut());
             return false;
         }
         if (this.buscarClientePorNombre(cliente.getNombreUsuario()) != null){
-            System.err.println("Ya existe un cliente con el nombre de usuario: " + cliente.getNombreUsuario());
+            System.out.println("Ya existe un cliente con el nombre de usuario: " + cliente.getNombreUsuario());
             return false;
         }
         this.clientes[cantActualCliente] = cliente;
@@ -49,8 +49,8 @@ public class ContenedorClientes {
     }
 
     /**
-     * Obtiene un cliente por posicion
-     * @param posicion un entero con la posicion
+     * Obtiene un cliente por posición
+     * @param posicion un entero con la posición
      * @return un objeto de clase Cliente
      */
     public Cliente obtenerCliente(int posicion){
@@ -61,7 +61,7 @@ public class ContenedorClientes {
     }
 
     /**
-     * obtiene la cantidad actual de clientes en el ContenedorClientes
+     * Obtiene la cantidad actual de clientes en el ContenedorClientes
      * @return un entero con la cantidad actual de clientes
      */
     public int getCantActualCliente(){
@@ -96,26 +96,38 @@ public class ContenedorClientes {
         return null;
     }
 
-    public boolean puedeJugar(String nivelSocio, int jugadasHoy){
-        if(nivelSocio.equals("Normal") || nivelSocio.equals("Plata")){
+    /**
+     * Este metodo determina si el usuario puede todavía jugar según su limitación de categoría
+     * @param categoria es la categoría actual del usuario
+     * @param jugadasHoy es la cantidad de jugadas que ha hecho el usuario
+     * @return un estado booleano
+     */
+    public boolean puedeJugar(String categoria, int jugadasHoy){
+        if(categoria.equals("Normal") || categoria.equals("Plata")){
             if(jugadasHoy == 1){
                 return false;
             } else {
                 return true;
             }
-        }else if(nivelSocio.equals("Oro")){
+        }else if(categoria.equals("Oro")){
             if (jugadasHoy == 2){
                 return false;
             } else {
                 return true;
             }
-        }else if(nivelSocio.equals("Platino")){
+        }else if(categoria.equals("Platino")){
             return true;
         }else{
             return false;
         }
     }
 
+    /**
+     * Este metodo determina si el usuario puede ascender de categoria según sus partidas ganadas
+     * @param categoriaActual es la categoria actual del usuario
+     * @param sesionesGanadas son las cantidades de jugadas ganadas
+     * @return un estado booleano
+     */
     public boolean puedeSubirCategoria(String categoriaActual,int sesionesGanadas) {
         switch (categoriaActual) {
             case "Normal":
@@ -129,6 +141,11 @@ public class ContenedorClientes {
         }
     }
 
+    /**
+     * Este metodo entrega la siguiente categoría según su categoría actual
+     * @param categoriaActual la categoría actual
+     * @return la siguiente categoría
+     */
     public String categoriaSiguiente(String categoriaActual) {
         switch (categoriaActual) {
             case "Normal":
@@ -141,6 +158,11 @@ public class ContenedorClientes {
                 return "Platino";
         }
     }
+
+    /**
+     * Obtiene los clientes de su contenedor
+     * @return un objeto Cliente
+     */
     public Cliente[] getContenedorClientes(){
         return this.clientes;
     }

@@ -16,16 +16,23 @@ class Cliente{
 }
 
 class ContenedorClientes{
-    -listaClientes: Cliente[]
-    -cantMax: int
-    -cantActual: int
+    -clientes: Cliente[]
+    -cantMaxClientes: int
+    -cantActualCliente: int
     +ContenedorClientes(cantMax: int)
     +agregarCliente(cliente: Cliente): boolean
-    +buscarCliente(rut: String): int
     +obtenerCliente(posicion: int): Cliente
+    +buscarClientePorRut(rut: String): int
+    +buscarClientePorNombre(nombreUsuario: String): int
+    +puedeJugar(categoria: String, jugadasHoy: int): boolean
+    +puedeSubirCategoria(categoriaActual: String, sesionesGanadas: int): boolean
+    +categoriaSiguiente(categoriaActual): String
+    +get's()
 }
 
-ContenedorClientes"1"o-->"*"Cliente
+ContenedorClientes"1"o-->"*"Cliente: almacena
+Cliente "1" --> "*" ContenedorJugadas: acumula
+Cliente "1" --> "1" Mesa: juega
 
 class Mesa{
     -id: int
@@ -41,63 +48,76 @@ class Mesa{
 }
 
 class ContenedorMesas{
-    -listaMesas: Mesa[]
-    -cantMax: int
-    -cantActual: int
+    -mesas: Mesa[]
+    -cantMaxMesa: int
+    -cantActualMesa: int
     +ContenedorMesa(cantMax: int)
     +agregarMesa(mesa: Mesa): boolean
-    +buscarMesa(id: int): int
     +obtenerMesa(posicion: int): Mesa
+    +obtenerMesaPorId(id: int): Mesa
+    +get's()
     }
-ContenedorMesas"1"o-->"*"Mesa
+ContenedorMesas"1"o->"*"Mesa: almacena
 
 class Jugada{
     -fechaJugada: String
+    -fechaHoy: LocalDateTime
     -apuesta: int
     -resultado: String
     -cliente: Cliente
     -mesa: Mesa
-    +Jugada(fechaJugada: String, apuesta: int: resultado: String)
+    -categoriaEnJugada: String
+    +Jugada(cliente: Cliente, mesa: Mesa, fechaJugada: String, apuesta: int: resultado: String)
     +get's()
     +set's()
 }
 
 class ContenedorJugadas{
-    -listaJugadas: Jugada[]
-    -cantMax: int
-    -cantActual: int
+    -jugadas: Jugada[]
+    -cantMaxJugada: int
+    -cantActualJugada: int
     +ContenedorJugadas(cantMax: int)
     +agregarJugada(jugada: Jugada): boolean
-    +buscarJugada(rut: String): int
+    +ordenarJugadas(): void
     +obtenerJugada(posicion: int): Jugada
+    +contarPartidasGanadas(rutCliente: String, categoriaActual: String): int
+    +get's()
 }
-ContenedorJugadas"1"--->"*"Jugada: tiene
+ContenedorJugadas"1"o-->"*"Jugada: almacena
 
 class SistemaCasinoImpl{
-    -listadoClientes: ContenedorClientes
+    -contenedorClientes: ContenedorClientes
+    -contenedorMesas: ContenedorMesas
+    -contenedorJugadas: ContenedorJugadas
     +SistemaCasinoImpl()
 }
 
-SistemaCasinoImpl"1"--->"1"ContenedorClientes: posee
-SistemaCasinoImpl"1"--->"1"ContenedorMesas: posee
-SistemaCasinoImpl"1"...|>"1"SistemaCasino: implementa
-SistemaCasinoImpl"1"--->"1"ContenedorJugadas: posee
+SistemaCasinoImpl"1"-->"1"ContenedorClientes: posee
+SistemaCasinoImpl"1"-->"1"ContenedorMesas: posee
+SistemaCasinoImpl"1"-->"1"ContenedorJugadas: posee
+SistemaCasinoImpl"1"..|>"1"SistemaCasino: implementa
 
 interface SistemaCasino{
-    +IniciarSesion(nombreUsuario: String, contrasenia: String): void
-    +RegistrarUsuario(nombre: String, apellidoPaterno: String, apellidoMaterno: String,
-    rut: String, nombreUsuario: String)
-    +Salir(): void
-    +RegistrarSesion(): void
-    +MostrarHistorial(): void
-    +GestionarCuenta(): void
-    +VerDatos(): void
-    +CambiarDeCategoria(opcion: String): void
-    +CambiarContraseña(contraseniaActual: String, contraseniaNueva): void
-    +Volver(): void
-    +VerMesasDisponibles(): String
-    +AdministrarMesas(): void
-    +MostrarEstadistica(): String
-    +CerrarSesion(): void
+    +cargaDeDatos(): void
+    +ingresarCliente(rut: String, nombre: String, apellidoPaterno: String, apellidoMaterno: String,
+                         nombreUsuario: String, contrasenia: String, categoriaSocio: String): boolean
+    +ingresarMesa(id: int, tipoJuego: String, descripcion: String, apuestaMin: int,
+                      apuestaMax: int, estado: boolean): boolean
+    +ingresarJugada(cliente: Cliente, mesa: Mesa, fechaJugada: String, apuesta: int: resultado: String): boolean
+    +registroNuevoCliente()
+    +iniciarSesion(nombreUsuario: String, contrasenia: String): boolean
+    +desplegarMesaDisponible(): void
+    +registrarSesionJuego(nombreUsuario: String, jugada: Jugada): void
+    +comprobanteSesionJuego(cliente: Cliente, jugada: Jugada): void
+    +consultarHistorial(nombreUsuario: String): void
+    +accesoAdministrarMesas(nombreUsuario: String): boolean
+    +cambiarEstadoMesa(): void
+    +crearYAgregarMesa(): void
+    +verDatosPersonales(nombreUsuario: String): void
+    +subirCategoria(nombreUsuario: String): void
+    +cambiarContraseña(nombreUsuario: String, contraseniaActual: String): boolean
+    +desplegarMesas(): void
+    +desplegarEstadistica(): void
+    +subirDatos(): void
 }
 @enduml

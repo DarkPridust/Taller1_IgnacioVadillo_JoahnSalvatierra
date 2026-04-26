@@ -1,36 +1,46 @@
 import java.time.LocalDateTime;
 
 /**
- *Representa a la entidad Jugada
+ * Representa a la entidad Jugada
  */
 public class Jugada {
     /**
-     * rut del cliente asociado
+     * Rut del cliente asociado
      */
     private Cliente cliente;
     /**
-     * fecha de hoy
+     * Fecha de hoy
      */
     private LocalDateTime fechaHoy;
     /**
-     * fecha registrada de la jugada
+     * Fecha registrada de la jugada
      */
     private String fechaJugada;
     /**
-     * apuesta realizada
+     * Apuesta realizada
      */
     private int apuesta;
     /**
-     * resultado de la jugada
+     * Resultado de la jugada
      */
     private String resultado;
     /**
      * Mesa asociada a la jugada
      */
     private Mesa mesa;
-
+    /**
+     * La categoria en la que el cliente jugó en la jugada
+     */
     private String categoriaEnJugada;
 
+    /**
+     * Es el constructor de la clase Jugada
+     * @param cliente     es el cliente quien jugó la jugada
+     * @param mesa        es la mesa que se jugó la jugada
+     * @param fechaJugada es la fecha en la que se realizó la jugada
+     * @param apuesta     es la apuesta que se apostó en la jugada
+     * @param resultado   es el resultado de la jugada
+     */
     public Jugada(Cliente cliente, Mesa mesa, String fechaJugada, int apuesta, String resultado) {
         this.cliente = cliente;
         this.mesa = mesa;
@@ -42,7 +52,7 @@ public class Jugada {
     }
 
     /**
-     * obtiene el cliente asociado
+     * Obtiene el cliente asociado
      * @return un objeto de tipo Cliente
      */
     public Cliente getCliente() {
@@ -50,15 +60,7 @@ public class Jugada {
     }
 
     /**
-     * Establece el cliente asociado
-     * @param cliente un objeto de tipo Cliente
-     */
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    /**
-     * obtiene la mesa asociada
+     * Obtiene la mesa asociada
      * @return Un objeto Mesa que contiene la mesa asociada
      */
     public Mesa getMesa() {
@@ -74,16 +76,7 @@ public class Jugada {
     }
 
     /**
-     * Establece la fecha de la jugada
-     * * <p> La fecha de la jugada debe de ser exactamente el dia en el que se realizo</p>
-     * @param fechaJugada un String con la fecha de la jugada
-     */
-    public void setFecha(String fechaJugada) {
-        this.fechaJugada = fechaJugada;
-    }
-
-    /**
-     * Obtiene la  apuesta de la jugada
+     * Obtiene la apuesta de la jugada
      * @return un entero con la apuesta de la jugada
      */
     public int getApuesta() {
@@ -91,16 +84,8 @@ public class Jugada {
     }
 
     /**
-     * Establece la  apuesta de la jugada
-     * * <p> La apuesta debe de estar en el rango entre la apuesta minima y apuesta maxima de la mesa</p>
-     * @param apuesta un entero con la apuesta de la jugada
-     */
-    public void setApuesta(int apuesta) {
-        this.apuesta = apuesta;
-    }
-
-    /**
      * Obtiene el resultado de la jugada
+     *
      * @return un String con el resultado de la jugada
      */
     public String getResultado() {
@@ -108,22 +93,17 @@ public class Jugada {
     }
 
     /**
-     * Establece el resultado de la jugada
-     * * <p> los unicos resultados posibles son Ganado y Perdido</p>
-     * @param resultado un String con el resultado de la jugada
+     * Obtiene la fecha de hoy.
+     * @return the fecha hoy
      */
-    public void setResultado(String resultado) {
-        this.resultado = resultado;
-    }
-
     public LocalDateTime getFechaHoy() {
         return fechaHoy;
     }
 
-    public void setFechaHoy(LocalDateTime fechaHoy) {
-        this.fechaHoy = fechaHoy;
-    }
-
+    /**
+     * Obtiene la categoria que se realizó la jugada.
+     * @return la categoria que se realizó la jugada
+     */
     public String getCategoriaEnJugada() {return categoriaEnJugada;}
 
 }
