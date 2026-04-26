@@ -183,21 +183,7 @@ public class Main {
                 switch(opcionM){
 
                     case 1:
-                        StdOut.println("------- Crear Mesa --------");
-                        StdOut.println("Ingrese el tipo de juego de la mesa: ");
-                        String tipo = StdIn.readString();
-                        StdOut.println("Ingrese la descripción de la mesa");
-                        String descripcion = StdIn.readString();
-                        StdOut.println("Ingresa la apuesta minima de la mesa");
-                        int apuestaMin =StdIn.readInt();
-                        StdOut.println("Ingresa la apuesta maxima de la mesa");
-                        int apuestaMax = StdIn.readInt();
-                        StdOut.println("Ingrese el estado de la mesa (Disponible/Cerrada)");
-                        String estado = StdIn.readString();
-
-                        int idMesa = sistema.getCantidadActualMesas() + 1;
-
-                        sistema.ingresarMesa(idMesa, tipo, descripcion, apuestaMin, apuestaMax, estado);
+                        sistema.crearYAgregarMesa();
                         break;
 
                     case 2:

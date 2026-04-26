@@ -91,13 +91,14 @@ public class ContenedorJugadas {
      * @return un objeto de clase Jugada
      */
 
-    public Jugada getJugadasPorRut(String rut){
+    public Jugada (){
         for(int i = 0; i < this.cantActualJugada; i++){
             if(jugadas[i].getCliente().getRut().equals(rut)){
                 return jugadas[i];
             }
         } return null;
     }
+
     public Jugada[] getContenedorJugadas(){
         return this.jugadas;
     }

@@ -362,22 +362,22 @@ public class SistemaCasinoImpl implements SistemaCasino {
      * Funcion que permite cambiar el estado de una mesa
      */
     public void cambiarEstadoMesa() {
-        StdOut.println("Ingrese el id de la mesa que desee cambiar de estado");
+        StdOut.println("Ingrese el id de la mesa que desee cambiar de estado: ");
         int id = StdIn.readInt();
-        Mesa m = contenedorMesas.obtenerMesaPorId(id);
-        String estado = m.getEstado();
-
         if (id < 1 || id > getCantidadActualMesas()) {
             System.out.println("La id ingresada esta fuera del alcance de las listas actuales");
-        }
+        } else {
+            Mesa m = contenedorMesas.obtenerMesaPorId(id);
+            String estado = m.getEstado();
 
-        if (estado.equals("Disponible")) {
-            System.out.println("La mesa con el id " + id + ", se cambio su estado a Cerrada ");
-            m.setEstado("Cerrado");
-        }
-        if (estado.equals("Cerrada")) {
-            System.out.println("La mesa con el id " + id + ", se cambio su estado a Disponible");
-            m.setEstado("Disponible");
+            if (estado.equals("Disponible")) {
+                System.out.println("La mesa con el id " + id + ", se cambio su estado a Cerrada ");
+                m.setEstado("Cerrado");
+            }
+            if (estado.equals("Cerrada")) {
+                System.out.println("La mesa con el id " + id + ", se cambio su estado a Disponible");
+                m.setEstado("Disponible");
+            }
         }
     }
 
@@ -474,6 +474,35 @@ public class SistemaCasinoImpl implements SistemaCasino {
         }
     }
 
+    public void crearYAgregarMesa(){
+        do {
+            StdOut.println("------- Crear Mesa --------");
+            StdOut.println("Ingrese el tipo de juego de la mesa: ");
+            String tipo = StdIn.readString();
+            StdOut.println("Ingrese la descripción de la mesa");
+            String descripcion = StdIn.readString();
+            StdOut.println("Ingresa la apuesta minima de la mesa");
+            int apuestaMin = StdIn.readInt();
+            if (apuestaMin < 0) {
+                System.out.println("La apuesta minima debe ser mayor a 0.");
+            } else {
+                StdOut.println("Ingresa la apuesta maxima de la mesa");
+                int apuestaMax = StdIn.readInt();
+                if (apuestaMax < apuestaMin) {
+                    System.out.println("La apuesta maxima debe de ser mayor que la apuesta minima.");
+                    break;
+                } else if (apuestaMax <= 0) {
+                    System.out.println("La apuesta máxima debe de ser mayor a 0.");
+                } else {
+                    StdOut.println("Ingrese el estado de la mesa (Disponible/Cerrada)");
+                    String estado = StdIn.readString();
+                    int idMesa = contenedorMesas.getCantidadActual() + 1;
+                    ingresarMesa(idMesa, tipo, descripcion, apuestaMin, apuestaMax, estado);
+                    System.out.println("La mesa ha sido creada y agregada al sistema exitosamente.");
+                }
+            }
+        }while (false);
+    }
     /**
      * Funcion que despliega las estadisticas del sistema
      */
@@ -481,6 +510,7 @@ public class SistemaCasinoImpl implements SistemaCasino {
         // Cantidad de jugadas realizadas dentro del sistema
         System.out.println("La cantidad de Jugadas realizadas dentro del sistema actualmente es igual a: " + contenedorJugadas.getCantidadActualjugadas());
         // Mesa mas frecuentada
+
 
         // Cliente con mayor balance positivo
 
