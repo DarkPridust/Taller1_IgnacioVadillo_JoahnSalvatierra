@@ -4,6 +4,7 @@
 import ucn.StdIn;
 import ucn.StdOut;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InputMismatchException;
 
@@ -12,16 +13,29 @@ public class Main {
 
     // Inicio del sistema
     SistemaCasinoImpl sistema = new SistemaCasinoImpl(100,10000,1000);
-    sistema.cargaDeDatos();
-    iniciarSistemaCasino(sistema);
+    boolean archivosValidos = false;
+
+    try{
+        sistema.cargaDeDatos();
+        archivosValidos = sistema.datosCargados();
+
+        if(!archivosValidos){
+            System.out.println("Advertencia: Uno o más archivos están vacíos.");
+        }
+
+    } catch(FileNotFoundException e){
+        System.out.println("Error: No se encontraron los archivos necesarios para que funcione el sistema.");
+        return;
     }
+    iniciarSistemaCasino(sistema, archivosValidos);
+}
 
     /**
      * Este metodo inicia el programa principal
      * @param sistema Es el sistema
      * @throws IOException
      */
-    public static void iniciarSistemaCasino(SistemaCasinoImpl sistema) throws IOException {
+    public static void iniciarSistemaCasino(SistemaCasinoImpl sistema, Boolean archivosValidos) throws IOException {
         int opcion = 0;
         do{
             StdOut.println("==== Casino Royal Aires ====");
@@ -33,6 +47,11 @@ public class Main {
                 opcion = StdIn.readInt();
                 switch(opcion) {
                     case 1:
+                        if (!archivosValidos) {
+                            System.out.println("Error: No se encuentran datos en el sistema.");
+                            System.out.println("No es posible iniciar sesión sin datos cargados.");
+                            break;
+                        }
                         StdOut.println("------- Inicio de Sesión --------");
 
                         StdOut.println("Ingrese el nombre de usuario con el que desea iniciar sesión: ");

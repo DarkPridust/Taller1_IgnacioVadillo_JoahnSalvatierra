@@ -51,7 +51,8 @@ public class SistemaCasinoImpl implements SistemaCasino {
             String contrasenia = regEnt.getString();
             String categoria = regEnt.getString();
             try{
-                ingresarCliente(rut, nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, categoria);
+                Cliente cliente = new Cliente(rut, nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, categoria);
+                contenedorClientes.agregarCliente(cliente);
             } catch (Exception e) {
                 System.out.println("Error: Los clientes no se han registrado correctamente.");
                 break;
@@ -69,7 +70,8 @@ public class SistemaCasinoImpl implements SistemaCasino {
             int montoMax = regEnt.getInt();
             String estado = regEnt.getString();
             try{
-                ingresarMesa(id, tipoJuego, descripcion, montoMin, montoMax, estado);
+                Mesa mesa = new Mesa(id, tipoJuego, descripcion, montoMin, montoMax, estado);
+                contenedorMesas.agregarMesa(mesa);
             } catch (Exception e) {
                 System.out.println("Error: Las mesas no se han registrado correctamente.");
                 break;
@@ -88,7 +90,8 @@ public class SistemaCasinoImpl implements SistemaCasino {
             Mesa mesa = contenedorMesas.obtenerMesaPorId(idMesa);
             Cliente cliente = contenedorClientes.buscarClientePorRut(rutCliente);
             try{
-                ingresarJugada(cliente, mesa, fecha, monto, resultado);
+                Jugada jugada = new Jugada(cliente,mesa, fecha, monto, resultado);
+                contenedorJugadas.agregarJugada(jugada);
             } catch (Exception e) {
                 System.out.println("Error: Las jugadas no se han registrado correctamente.");
                 break;
@@ -97,51 +100,14 @@ public class SistemaCasinoImpl implements SistemaCasino {
     }
 
     /**
-     * Función que permite ingresar un cliente
-     * @param rut             un String con el rut del cliente
-     * @param nombre          un String con el nombre del cliente
-     * @param apellidoPaterno un String con el apellido paterno del cliente
-     * @param apellidoMaterno un String con el apellido materno del cliente
-     * @param nombreUsuario   un String con el nombre de usuario del cliente
-     * @param contrasenia     un String con la contraseña del cliente
-     * @param categoriaSocio  un String con la categoria del cliente
-     * @return un booleano que determina si se pudo o no ingresar el cliente
+     * Este metodo verifica si los contenedores tienen al menos un elemento cargado al sistema.
+     * @return un booleano que determina si hay elementos cargados o no.
      */
     @Override
-    public boolean ingresarCliente(String rut, String nombre, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String categoriaSocio) {
-        Cliente cliente = new Cliente(rut, nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, categoriaSocio);
-        return this.contenedorClientes.agregarCliente(cliente);
-    }
-
-    /**
-     * Función que permite ingresar una mesa
-     * @param id          un entero con el id de la mesa
-     * @param tipoJuego   un String con el tipo de juego de la mesa
-     * @param descripcion un String con la descripción de la mesa
-     * @param apuestaMin  un entero con la apuesta minima de la mesa
-     * @param apuestaMax  un entero con la apuesta maxima de la mesa
-     * @param estado      un String con el estado de la mesa
-     * @return un booleano que determina si se pudo o no ingresar la mesa
-     */
-    @Override
-    public boolean ingresarMesa(int id, String tipoJuego, String descripcion, int apuestaMin, int apuestaMax, String estado) {
-        Mesa mesa = new Mesa(id, tipoJuego, descripcion, apuestaMin, apuestaMax, estado);
-        return this.contenedorMesas.agregarMesa(mesa);
-    }
-
-    /**
-     * Función que permite ingresar una jugada
-     * @param cliente   un objeto con el rut del cliente
-     * @param mesa      un objeto de tipo Mesa
-     * @param fecha     un String con la fecha de la jugada
-     * @param apuesta   un entero con la apuesta realizada
-     * @param resultado un String con el resultado de la jugada
-     * @return un booleano que determina si se pudo o no ingresar la jugada
-     */
-    @Override
-    public boolean ingresarJugada(Cliente cliente, Mesa mesa, String fecha, int apuesta, String resultado) {
-        Jugada jugada = new Jugada(cliente, mesa, fecha, apuesta, resultado);
-        return this.contenedorJugadas.agregarJugada(jugada);
+    public boolean datosCargados() {
+        return contenedorClientes.getCantActualCliente() > 0
+                && contenedorMesas.getCantidadActual() > 0
+                && contenedorJugadas.getCantidadActualjugadas() > 0;
     }
 
     /**
@@ -171,7 +137,8 @@ public class SistemaCasinoImpl implements SistemaCasino {
         String rutSinVerificador = rutCliente.replaceAll("[^0-9]", "");
         String contrasenia = rutSinVerificador.substring(0, rutSinVerificador.length() - 1);
 
-        ingresarCliente(rutCliente, nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, "Normal");
+        Cliente cliente = new Cliente(rutCliente, nombre, apellidoPaterno, apellidoMaterno, nombreUsuario, contrasenia, "Normal");
+        contenedorClientes.agregarCliente(cliente);
         System.out.print("El cliente ha sido registrado exitosamente.\n");
     }
 
@@ -471,7 +438,8 @@ public class SistemaCasinoImpl implements SistemaCasino {
                     StdOut.println("Ingrese el estado de la mesa (Disponible/Cerrada): ");
                     String estado = StdIn.readString();
                     int idMesa = contenedorMesas.getCantidadActual() + 1;
-                    ingresarMesa(idMesa, tipo, descripcion, apuestaMin, apuestaMax, estado);
+                    Mesa m = new Mesa(idMesa, tipo, descripcion, apuestaMin, apuestaMax, estado);
+                    contenedorMesas.agregarMesa(m);
                     System.out.println("La mesa ha sido creada y agregada al sistema exitosamente.");
                 }
             }

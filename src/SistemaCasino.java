@@ -4,11 +4,7 @@ public interface SistemaCasino {
 
     // El sistema carga datos
     void cargaDeDatos() throws IOException;
-
-    // El sistema permite ingresar nuevos objetos en las clases: Cliente, Mesa, Jugada
-    boolean ingresarCliente(String rut, String nombre, String apellidoPaterno, String apellidoMaterno, String nombreUsuario, String contrasenia, String categoria);
-    boolean ingresarMesa(int id, String tipoJuego, String descripcion, int apuestaMin, int apuestaMax, String estado);
-    boolean ingresarJugada(Cliente cliente, Mesa mesa, String fecha, int apuesta, String resultado);
+    boolean datosCargados();
 
     //Operaciones del sistema
     void registroNuevoCliente();

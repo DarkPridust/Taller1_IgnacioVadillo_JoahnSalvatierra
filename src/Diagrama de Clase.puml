@@ -99,11 +99,7 @@ SistemaCasinoImpl"1"..|>"1"SistemaCasino: implementa
 
 interface SistemaCasino{
     +cargaDeDatos(): void
-    +ingresarCliente(rut: String, nombre: String, apellidoPaterno: String, apellidoMaterno: String,
-                         nombreUsuario: String, contrasenia: String, categoriaSocio: String): boolean
-    +ingresarMesa(id: int, tipoJuego: String, descripcion: String, apuestaMin: int,
-                      apuestaMax: int, estado: boolean): boolean
-    +ingresarJugada(cliente: Cliente, mesa: Mesa, fechaJugada: String, apuesta: int: resultado: String): boolean
+    +datosCargados(): boolean
     +registroNuevoCliente()
     +iniciarSesion(nombreUsuario: String, contrasenia: String): boolean
     +desplegarMesaDisponible(): void
