@@ -100,7 +100,7 @@ SistemaCasinoImpl"1"..|>"1"SistemaCasino: implementa
 interface SistemaCasino{
     +cargaDeDatos(): void
     +datosCargados(): boolean
-    +registroNuevoCliente()
+    +registroNuevoCliente(): void
     +iniciarSesion(nombreUsuario: String, contrasenia: String): boolean
     +desplegarMesaDisponible(): void
     +registrarSesionJuego(nombreUsuario: String, jugada: Jugada): void
