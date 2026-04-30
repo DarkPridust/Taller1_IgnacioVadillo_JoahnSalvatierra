@@ -31,7 +31,7 @@ class ContenedorClientes{
 }
 
 ContenedorClientes"1"o-->"*"Cliente: almacena
-Cliente "1" --> "*" ContenedorJugadas: acumula
+Cliente "1" --> "1" ContenedorJugadas: acumula
 Cliente "1" --> "1" Mesa: juega
 
 class Mesa{

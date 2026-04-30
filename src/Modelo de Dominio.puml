@@ -28,7 +28,7 @@ entity Jugada{
     resultado
 }
 
-Cliente "1" --> "1..*" Mesa: Genera >
+Cliente "1" --> "1..*" Mesa: Juega >
 note on link: Si el cliente tiene la categoria\nsocio Platino, puede\nadministrar las mesas
 
 Mesa "1" --> "1" Jugada: Se realiza >

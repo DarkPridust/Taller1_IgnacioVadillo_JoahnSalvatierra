@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
     // Inicio del sistema
-    SistemaCasinoImpl sistema = new SistemaCasinoImpl(100,10000,1000);
+    SistemaCasinoImpl sistema = new SistemaCasinoImpl(100,1000,100);
     boolean archivosValidos = false;
 
     try{
